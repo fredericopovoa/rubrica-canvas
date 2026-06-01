@@ -349,6 +349,7 @@ function initDisc(){
       +'<div class="disc-pts" style="background:'+d.light+';color:'+d.dark+'">'+d.total+' pts/semana</div>';
     b.onclick=function(){
       D=d;
+      localStorage.setItem('cdisc', d.id);
       document.querySelectorAll('.disc-btn').forEach(function(x){x.classList.remove('sel');});
       b.classList.add('sel');
       document.getElementById('btn-conn').style.background=d.color;
@@ -705,28 +706,13 @@ async function doSubmit(){
   // Save absences first
   saveAbsences(week.name);
   absView=course.id+'_'+myDisc.id;
-  // Try to get Canvas rubric IDs for proper mapping
-  var canvasCritMap=null;
-  try{
-    var det=await api('/api/v1/courses/'+course.id+'/assignments/'+week.id);
-    if(det.rubric&&det.rubric.length){
-      canvasCritMap=det.rubric.map(function(c,i){return{canvasId:c.id, localId:crit[i]?crit[i].id:null};});
-    }
-  } catch(e){}
+  // Always use local criteria — never trust Canvas rubric order
   var ok=0, errs=[];
   for(var i=0;i<students.length;i++){
     var s=students[i]; var a=asmts[s.id];
     var total=a.absent?0:Object.values(a.scores).reduce(function(x,y){return x+y;},0);
     var payload={submission:{posted_grade:total}};
     if(a.comment) payload.comment={text_comment:a.comment};
-    if(canvasCritMap){
-      payload.rubric_assessment={};
-      canvasCritMap.forEach(function(m,i){
-        var localId=crit[i]?crit[i].id:null;
-        var pts=localId&&a.scores[localId]!==undefined?a.scores[localId]:0;
-        payload.rubric_assessment['criterion_'+m.canvasId]={points:pts};
-      });
-    }
     try{
       var r=await fetch(PROXY+'/api/v1/courses/'+course.id+'/assignments/'+week.id+'/submissions/'+s.id,{
         method:'PUT', headers:{'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'}, body:JSON.stringify(payload)
@@ -819,16 +805,26 @@ function renderAbsTable(){
 function clearAbs(){ if(confirm('Apagar todo o histórico de faltas?')){ localStorage.removeItem(ABS_KEY); absStore={}; absView=null; buildAbsNav(); } }
 
 // ── Init ──
+// Always start on discipline screen. Pre-fill token if saved,
+// and pre-select last disc, but user must explicitly click Connect.
 loadAbs(); initDisc();
 var st=localStorage.getItem('ctok'), sd=localStorage.getItem('cdisc');
-if(st&&sd&&DISC[sd]){
-  TOKEN=st; D=DISC[sd];
+if(st){
   document.getElementById('tok').value=st;
+  TOKEN=st;
+}
+if(sd&&DISC[sd]){
+  D=DISC[sd];
+  // Highlight the saved disc button
   document.querySelectorAll('.disc-btn').forEach(function(b){
-    if(b.querySelector('.disc-name').textContent===D.name) b.classList.add('sel');
+    if(b.querySelector('.disc-name').textContent===D.name){
+      b.classList.add('sel');
+    }
   });
-  document.getElementById('btn-conn').disabled=false;
-  document.getElementById('btn-conn').style.background=D.color;
+  if(st){
+    document.getElementById('btn-conn').disabled=false;
+    document.getElementById('btn-conn').style.background=D.color;
+  }
 }
 </script>
 </body>
