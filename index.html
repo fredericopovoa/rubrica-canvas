@@ -191,7 +191,7 @@ textarea.cmt:focus{border-color:#1D9E75;}
   <div style="margin-bottom:1rem">
     <label class="field-lbl">Semana de avaliação</label>
     <div id="wk-loading" class="loading" style="padding:.8rem"><i class="ti ti-refresh" style="color:#1D9E75"></i></div>
-    <div id="wk-list" style="display:none;flex-wrap:wrap;gap:6px;margin-bottom:4px"></div>
+    <div id="wk-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;visibility:hidden;min-height:0;max-height:0;overflow:hidden"></div>
   </div>
   <div class="chips">
     <div class="chip chip-pend"><div class="chip-n" id="cnt-p">0</div><div class="chip-l">pendentes</div></div>
@@ -387,7 +387,7 @@ async function loadWeeks(){
       };
       wl.appendChild(btn);
     });
-    document.getElementById('wk-loading').style.display='none';wl.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px;';
+    document.getElementById('wk-loading').style.display='none';wl.style.visibility='visible';wl.style.maxHeight='';wl.style.overflow='';
   }catch(e){document.getElementById('wk-loading').innerHTML='<div class="err-box">'+e.message+'</div>';}
 }
 function goEvalReset(){week=null;document.querySelectorAll('.wk-btn').forEach(function(b){b.classList.remove('sel');b.style.background='#fff';b.style.borderColor='#ddd';b.style.color='#666';});document.getElementById('sub-wrap').style.display='none';go('s-eval');}
@@ -403,8 +403,13 @@ async function loadStudents(){
 }
 
 function getCrit(){
-  if(rubricData&&rubricData.length)return rubricData.map(function(c){return{id:c.id,label:c.description,ratings:c.ratings?c.ratings.map(function(r){return r.points;}).sort(function(a,b){return b-a;}):disc.criteria[0].ratings};});
+  // Always use local criteria so profile buttons (Médio/Máximo) map correctly
   return disc.criteria;
+}
+function getCanvasCritMap(){
+  // Returns mapping from local criterion index to Canvas rubric criterion id
+  if(!rubricData||!rubricData.length) return null;
+  return rubricData.map(function(c,i){return{canvasId:c.id,localId:disc.criteria[i]?disc.criteria[i].id:c.id};});
 }
 
 function renderStudents(){
@@ -520,7 +525,14 @@ async function doSubmit(){
     const total=a.absent?0:Object.values(a.scores).reduce(function(x,y){return x+y;},0);
     const payload={submission:{posted_grade:total}};
     if(a.comment)payload.comment={text_comment:a.comment};
-    if(rubricData){payload.rubric_assessment={};crit.forEach(function(c){payload.rubric_assessment['criterion_'+c.id]={points:a.scores[c.id]||0};});}
+    if(rubricData){
+      payload.rubric_assessment={};
+      const cmap=getCanvasCritMap();
+      crit.forEach(function(c,i){
+        const canvasId=cmap?cmap[i].canvasId:c.id;
+        payload.rubric_assessment['criterion_'+canvasId]={points:a.scores[c.id]||0};
+      });
+    }
     try{
       const r=await fetch(PROXY+'/api/v1/courses/'+course.id+'/assignments/'+week.id+'/submissions/'+s.id,{method:'PUT',headers:{'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:JSON.stringify(payload)});
       if(!r.ok)throw new Error('HTTP '+r.status);ok++;
