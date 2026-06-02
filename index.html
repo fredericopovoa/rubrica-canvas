@@ -324,6 +324,7 @@ const DISC = {
 // ── State ──
 var TOKEN='', D=null, course=null, group=null, week=null;
 var students=[], asmts={}, absStore={}, absView=null;
+var studentsCache={}; // cache by group key to avoid re-fetching
 
 // ── Helpers ──
 function go(id){ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');}); document.getElementById(id).classList.add('active'); }
@@ -475,10 +476,12 @@ function renderGroups(groups,cat){
 async function selectGroup(g){
   group=g;
   if(g){
-    try{
-      var members=await api('/api/v1/groups/'+g.id+'/users');
-      g.memberIds=members.map(function(x){return x.id;});
-    } catch(e){ g.memberIds=[]; }
+    if(!g.memberIds){ // only fetch if not already cached
+      try{
+        var members=await api('/api/v1/groups/'+g.id+'/users');
+        g.memberIds=members.map(function(x){return x.id;});
+      } catch(e){ g.memberIds=[]; }
+    }
   }
   // Go to week selection
   document.getElementById('title-week').textContent=course.name+(g?' · '+g.name:'');
@@ -571,14 +574,25 @@ async function goToStudents(){
   document.getElementById('title-eval').textContent=course.name+(group?' · '+group.name:'');
   document.getElementById('sub-eval').textContent=D.name+' — '+(week?week.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim():'');
   go('t-eval');
+  asmts={};
+  // Use cache key based on course + group
+  var cacheKey=course.id+'_'+(group?group.id:'all');
+  if(studentsCache[cacheKey]){
+    // Instant load from cache
+    students=studentsCache[cacheKey];
+    renderStudents();
+    document.getElementById('load-students').style.display='none';
+    updateSummary();
+    return;
+  }
   document.getElementById('load-students').style.display='block';
   document.getElementById('list-students').innerHTML='';
-  asmts={};
   try{
     var studs=await apiAll('/api/v1/courses/'+course.id+'/students');
     if(group&&group.memberIds&&group.memberIds.length){
       studs=studs.filter(function(s){return group.memberIds.indexOf(s.id)!==-1;});
     }
+    studentsCache[cacheKey]=studs; // save to cache
     students=studs;
     renderStudents();
     document.getElementById('load-students').style.display='none';
