@@ -225,7 +225,11 @@ textarea.cmt:focus{border-color:#1D9E75;}
   </div>
   <label class="field-lbl">Selecione a semana de avaliação</label>
   <div id="load-weeks" class="loading"><i class="ti ti-refresh" style="color:#1D9E75"></i>Carregando avaliações...</div>
+  <div id="wk-search-wrap" style="display:none;margin-bottom:10px">
+    <input type="text" id="wk-search" placeholder="Filtrar por nome (ex: PNEUMO, CARDIO...)" oninput="filterWeeks()" style="font-size:13px"/>
+  </div>
   <div id="list-weeks" class="wk-grid" style="display:none"></div>
+  <div id="wk-count" style="font-size:11px;color:#888;margin-top:6px;display:none"></div>
 </div>
 
 <!-- T5: Alunos -->
@@ -484,34 +488,77 @@ async function selectGroup(g){
 }
 
 // ── T4: Week ──
+async function apiAll(path){
+  // Fetch all pages from Canvas API
+  var results=[];
+  var base=path+(path.includes('?')?'&':'?')+'per_page=100';
+  if(path.includes('/assignments')) base+='&include[]=all_dates&include[]=overrides&order_by=name';
+  var url=PROXY+base;
+  while(url){
+    var r=await fetch(url,{headers:{'Authorization':'Bearer '+TOKEN}});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var data=await r.json();
+    results=results.concat(data);
+    // Check Link header for next page
+    var link=r.headers.get('Link')||'';
+    var next=link.match(/<([^>]+)>;\s*rel="next"/);
+    if(next){
+      // Rewrite URL through proxy
+      var nextUrl=next[1];
+      url=nextUrl.replace('https://afya.instructure.com', PROXY);
+    } else { url=null; }
+  }
+  return results;
+}
+
+var allWeekAsgns=[];
+
+async function filterWeeks(){
+  var q=(document.getElementById('wk-search').value||'').toLowerCase();
+  var wl=document.getElementById('list-weeks');
+  var btns=wl.querySelectorAll('button');
+  var shown=0;
+  btns.forEach(function(b){
+    var match=!q||b.textContent.toLowerCase().includes(q);
+    b.style.display=match?'':'none';
+    if(match) shown++;
+  });
+  document.getElementById('wk-count').textContent=shown+' de '+btns.length+' avaliações';
+}
+
 async function loadWeeks(){
   document.getElementById('load-weeks').style.display='block';
   var wl=document.getElementById('list-weeks'); wl.innerHTML=''; wl.style.display='none';
   try{
-    var asgns=await api('/api/v1/courses/'+course.id+'/assignments?search_term=Avalia%C3%A7%C3%A3o+do+aluno');
-    if(!asgns.length) asgns=await api('/api/v1/courses/'+course.id+'/assignments');
-    asgns.sort(function(a,b){return a.name.localeCompare(b.name);});
+    // Fetch ALL assignments with pagination - no search filter
+    var asgns=await apiAll('/api/v1/courses/'+course.id+'/assignments');
+    // Filter only rubric evaluation assignments
+    var filtered=asgns.filter(function(a){
+      return /avalia[cç][aã]o do aluno/i.test(a.name);
+    });
+    // Fall back to all if none match filter
+    if(!filtered.length) filtered=asgns;
+    filtered.sort(function(a,b){return a.name.localeCompare(b.name);});
+    asgns=filtered;
     asgns.forEach(function(a){
       var btn=document.createElement('button'); btn.className='wk-btn';
-      // Show shortened label: remove "Avaliação do aluno - " prefix
       var label=a.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim()||a.name;
       btn.textContent=label;
-      btn.style.setProperty('--dc', D.color);
       btn.onclick=function(){
         week=a;
         document.querySelectorAll('.wk-btn').forEach(function(b){
           b.classList.remove('sel'); b.style.background=''; b.style.borderColor=''; b.style.color='';
         });
         btn.classList.add('sel'); btn.style.background=D.light; btn.style.borderColor=D.color; btn.style.color=D.dark;
-        // After short delay, proceed to students
-        setTimeout(function(){
-          goToStudents();
-        }, 300);
+        setTimeout(function(){ goToStudents(); }, 300);
       };
       wl.appendChild(btn);
     });
     document.getElementById('load-weeks').style.display='none';
     wl.style.display='flex';
+    document.getElementById('wk-search-wrap').style.display='block';
+    document.getElementById('wk-count').style.display='block';
+    document.getElementById('wk-count').textContent=asgns.length+' avaliações encontradas';
   } catch(e){ document.getElementById('load-weeks').innerHTML='<div class="err-box">'+e.message+'</div>'; }
 }
 
@@ -524,7 +571,7 @@ async function goToStudents(){
   document.getElementById('list-students').innerHTML='';
   asmts={};
   try{
-    var studs=await api('/api/v1/courses/'+course.id+'/students');
+    var studs=await apiAll('/api/v1/courses/'+course.id+'/students');
     if(group&&group.memberIds&&group.memberIds.length){
       studs=studs.filter(function(s){return group.memberIds.indexOf(s.id)!==-1;});
     }
