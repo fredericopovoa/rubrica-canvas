@@ -489,42 +489,27 @@ async function selectGroup(g){
 
 // ── T4: Week ──
 async function apiAll(path){
-  // Fetch all pages from Canvas API
+  // Fetch all pages using page numbers, 20 items per page for reliability
   var results=[];
-  var base=path+(path.includes('?')?'&':'?')+'per_page=100';
-  if(path.includes('/assignments')) base+='&include[]=all_dates&include[]=overrides&order_by=name';
-  var url=PROXY+base;
-  while(url){
+  var sep=path.includes('?')?'&':'?';
+  var extra='';
+  if(path.includes('/assignments')) extra='&include[]=all_dates&order_by=name';
+  var page=1;
+  var perPage=75;
+  while(true){
+    var url=PROXY+path+sep+'per_page='+perPage+extra+'&page='+page;
     var r=await fetch(url,{headers:{'Authorization':'Bearer '+TOKEN}});
     if(!r.ok) throw new Error('HTTP '+r.status);
     var data=await r.json();
+    if(!data||!data.length) break;
     results=results.concat(data);
-    // Check Link header for next page
-    var link=r.headers.get('Link')||'';
-    var next=link.match(/<([^>]+)>;\s*rel="next"/);
-    if(next){
-      // Rewrite URL through proxy
-      var nextUrl=next[1];
-      url=nextUrl.replace('https://afya.instructure.com', PROXY);
-    } else { url=null; }
+    if(data.length<perPage) break;
+    page++;
+    if(page>50) break; // supports up to 1000 assignments
   }
   return results;
 }
 
-var allWeekAsgns=[];
-
-async function filterWeeks(){
-  var q=(document.getElementById('wk-search').value||'').toLowerCase();
-  var wl=document.getElementById('list-weeks');
-  var btns=wl.querySelectorAll('button');
-  var shown=0;
-  btns.forEach(function(b){
-    var match=!q||b.textContent.toLowerCase().includes(q);
-    b.style.display=match?'':'none';
-    if(match) shown++;
-  });
-  document.getElementById('wk-count').textContent=shown+' de '+btns.length+' avaliações';
-}
 
 async function loadWeeks(){
   document.getElementById('load-weeks').style.display='block';
