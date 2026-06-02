@@ -8,10 +8,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;min-height:100vh;padding:12px 16px;color:#1a1a1a;}
-#app{max-width:620px;margin:0 auto;}
+#app{max-width:640px;margin:0 auto;}
 .screen{display:none;}.screen.active{display:block;}
 
-/* Header */
 .hdr{display:flex;align-items:center;gap:10px;padding:.9rem 0 1.1rem;border-bottom:1px solid #e0ddd6;margin-bottom:1.1rem;}
 .hdr-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .hdr-title{font-size:15px;font-weight:600;color:#1a1a1a;line-height:1.3;}
@@ -19,10 +18,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hdr-actions{margin-left:auto;display:flex;gap:6px;flex-shrink:0;}
 .btn-ico{display:flex;align-items:center;gap:5px;padding:5px 10px;font-size:12px;border-radius:8px;cursor:pointer;border:1px solid #ddd;background:#fff;color:#555;white-space:nowrap;}
 .btn-ico:hover{background:#f0ede6;}
-.btn-ico.red{border-color:#f09595;color:#791F1F;}
-.btn-ico.red:hover{background:#fcebeb;}
+.btn-ico.red{border-color:#f09595;color:#791F1F;}.btn-ico.red:hover{background:#fcebeb;}
 
-/* Cards */
 .card{background:#fff;border:1px solid #e0ddd6;border-radius:13px;padding:.9rem 1.1rem;margin-bottom:10px;}
 .list-row{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;border-bottom:1px solid #f0ede6;}
 .list-row:last-child{border-bottom:none;}
@@ -32,7 +29,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .row-meta{font-size:11px;color:#888;margin-top:2px;}
 .sec-label{font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
 
-/* Buttons */
 .btn-prim{width:100%;padding:10px;font-size:14px;font-weight:600;border:none;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;color:#fff;transition:opacity .15s;}
 .btn-prim:disabled{opacity:.4;cursor:not-allowed;}
 .btn-prim:not(:disabled):hover{opacity:.87;}
@@ -41,14 +37,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-dng{padding:7px 13px;font-size:13px;background:#fff;border:1px solid #f09595;border-radius:8px;cursor:pointer;color:#791F1F;}
 .btn-dng:hover{background:#fcebeb;}
 
-/* Forms */
 .field-lbl{font-size:13px;font-weight:600;color:#444;margin-bottom:5px;display:block;}
 input[type=password],input[type=text]{width:100%;padding:8px 11px;font-size:14px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#1a1a1a;outline:none;}
 input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12);}
 .hint{font-size:11px;color:#888;margin-top:5px;line-height:1.5;}
 .hint a{color:#1D9E75;}
 
-/* Discipline picker */
+/* Discipline */
 .disc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:1.1rem;}
 .disc-btn{border:1.5px solid #ddd;border-radius:13px;padding:13px 11px;cursor:pointer;background:#fff;text-align:left;transition:all .15s;}
 .disc-btn:hover{border-color:var(--dc);}
@@ -58,7 +53,16 @@ input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12);}
 .disc-sub{font-size:11px;color:#666;margin-top:2px;}
 .disc-pts{font-size:11px;font-weight:600;margin-top:7px;padding:2px 8px;border-radius:20px;display:inline-block;}
 
-/* Group cards */
+/* Mode selector */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:1.1rem;}
+.mode-btn{border:1.5px solid #ddd;border-radius:13px;padding:13px 11px;cursor:pointer;background:#fff;text-align:left;transition:all .15s;}
+.mode-btn:hover{border-color:#1D9E75;}
+.mode-btn.sel{border-color:#1D9E75;background:#E1F5EE;border-width:2px;}
+.mode-icon{font-size:22px;margin-bottom:7px;display:block;color:#1D9E75;}
+.mode-name{font-size:13px;font-weight:600;color:#1a1a1a;}
+.mode-desc{font-size:11px;color:#666;margin-top:3px;line-height:1.4;}
+
+/* Groups */
 .group-card{background:#fff;border:1px solid #e0ddd6;border-radius:13px;padding:12px 1.1rem;margin-bottom:9px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .15s;}
 .group-card:hover{border-color:#1D9E75;background:#f8fffe;}
 .group-num{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
@@ -69,11 +73,12 @@ input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12);}
 
 /* Week buttons */
 .wk-grid{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;}
-.wk-btn{padding:8px 14px;font-size:12px;font-weight:500;border-radius:20px;cursor:pointer;border:1px solid #ddd;background:#fff;color:#666;white-space:nowrap;transition:all .12s;}
+.wk-btn{padding:8px 14px;font-size:12px;font-weight:500;border-radius:20px;cursor:pointer;border:1.5px solid #ddd;background:#fff;color:#666;white-space:nowrap;transition:all .12s;}
 .wk-btn:hover{border-color:#aaa;color:#333;}
-.wk-btn.sel{font-weight:700;border-width:2px;}
+.wk-btn.done{background:#E1F5EE;border-color:#1D9E75;color:#085041;}
+.wk-btn.sel{border-width:2px;}
 
-/* Loading / messages */
+/* Loading */
 .loading{text-align:center;padding:2rem;color:#888;font-size:13px;}
 .loading i{font-size:24px;display:block;margin-bottom:7px;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -83,7 +88,7 @@ input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12);}
 .ok-title{font-size:14px;font-weight:600;color:#27500A;margin-bottom:3px;}
 .ok-detail{font-size:12px;color:#3B6D11;line-height:1.5;}
 
-/* Summary chips */
+/* Chips */
 .chips{display:flex;gap:8px;margin-bottom:1.1rem;}
 .chip{flex:1;padding:9px 6px;border-radius:9px;text-align:center;}
 .chip-n{font-size:20px;font-weight:700;}.chip-l{font-size:10px;margin-top:1px;}
@@ -100,7 +105,7 @@ input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12);}
 .stu-body{padding:12px 1.1rem;display:none;border-top:1px solid #f0ede6;}
 .stu-body.open{display:block;}
 
-/* Quick profile buttons */
+/* Quick buttons */
 .quick-btns{display:flex;gap:6px;margin-bottom:12px;}
 .q-btn{flex:1;padding:8px 6px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .12s;}
 .q-abs{border-color:#f09595;background:#fcebeb;color:#791F1F;}
@@ -129,6 +134,16 @@ textarea.cmt:focus{border-color:#1D9E75;}
 .sub-wrap{margin-top:1.3rem;}
 .sub-prog{font-size:12px;color:#888;margin-bottom:7px;text-align:center;}
 
+/* Semestral mode - week sections inside student */
+.sem-wk-section{border:1px solid #e0ddd6;border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.sem-wk-hdr{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;background:#faf9f6;border-bottom:1px solid #e0ddd6;}
+.sem-wk-hdr:hover{background:#f0ede6;}
+.sem-wk-hdr.done{background:#E1F5EE;}
+.sem-wk-title{font-size:12px;font-weight:600;color:#333;flex:1;}
+.sem-wk-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;}
+.sem-wk-body{padding:12px;display:none;}
+.sem-wk-body.open{display:block;}
+
 /* Semester toggle */
 .sem-tog{text-align:center;padding:9px 0;font-size:12px;cursor:pointer;color:#888;border-top:1px solid #f0ede6;margin-top:3px;}
 
@@ -152,13 +167,10 @@ textarea.cmt:focus{border-color:#1D9E75;}
 .ac{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;}
 .ac0{background:#E1F5EE;color:#085041;}.ac1{background:#FAEEDA;color:#633806;}.ac2{background:#FCEBEB;color:#791F1F;}.ac3{background:#E24B4A;color:#fff;}
 .abs-empty{text-align:center;padding:2rem;color:#aaa;font-size:13px;}
-
-/* Steps */
 .step{display:flex;gap:9px;margin-bottom:9px;align-items:flex-start;}
 .step-n{width:20px;height:20px;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#E1F5EE;color:#085041;}
 .step-t{font-size:12px;color:#333;line-height:1.6;}
 .step-t a{color:#1D9E75;}.step-t code{background:#f0ede6;padding:1px 4px;border-radius:4px;font-size:11px;}
-
 @media print{body{background:#fff;padding:0;}.no-print{display:none!important;}}
 </style>
 </head>
@@ -205,18 +217,33 @@ textarea.cmt:focus{border-color:#1D9E75;}
   <div id="list-courses" class="card" style="display:none"></div>
 </div>
 
-<!-- T3: Grupos -->
+<!-- T3: Modo + Grupos -->
 <div id="t-groups" class="screen">
   <div class="hdr">
     <div class="hdr-icon" id="ic-groups" style="background:#E1F5EE"><i class="ti ti-users-group" style="color:#085041;font-size:17px"></i></div>
-    <div><div class="hdr-title" id="title-groups">Grupos</div><div class="hdr-sub">Selecione seu grupo prático</div></div>
+    <div><div class="hdr-title" id="title-groups">Grupos</div><div class="hdr-sub" id="sub-groups"></div></div>
     <div class="hdr-actions"><button class="btn-ico" onclick="go('t-courses')"><i class="ti ti-arrow-left"></i> Voltar</button></div>
   </div>
+  <!-- Mode selector -->
+  <label class="field-lbl">Modo de avaliação</label>
+  <div class="mode-grid" style="margin-bottom:1.1rem">
+    <button class="mode-btn sel" id="mode-semana" onclick="selectMode('semana')">
+      <i class="ti ti-calendar-week mode-icon"></i>
+      <div class="mode-name">Modo Semana</div>
+      <div class="mode-desc">Avalia todos os alunos de uma semana de uma vez. Ideal para uso semanal.</div>
+    </button>
+    <button class="mode-btn" id="mode-semestral" onclick="selectMode('semestral')">
+      <i class="ti ti-calendar-stats mode-icon"></i>
+      <div class="mode-name">Modo Semestral</div>
+      <div class="mode-desc">Avalia todas as semanas de um aluno de uma vez. Ideal para lançamento retroativo.</div>
+    </button>
+  </div>
+  <label class="field-lbl">Selecione o grupo prático</label>
   <div id="load-groups" class="loading"><i class="ti ti-refresh" style="color:#1D9E75"></i>Carregando grupos...</div>
   <div id="list-groups" style="display:none"></div>
 </div>
 
-<!-- T4: Semana -->
+<!-- T4: Semana (Modo Semana) -->
 <div id="t-week" class="screen">
   <div class="hdr">
     <div class="hdr-icon" id="ic-week" style="background:#E1F5EE"><i class="ti ti-calendar-event" style="color:#085041;font-size:17px"></i></div>
@@ -225,14 +252,14 @@ textarea.cmt:focus{border-color:#1D9E75;}
   </div>
   <label class="field-lbl">Selecione a semana de avaliação</label>
   <div id="load-weeks" class="loading"><i class="ti ti-refresh" style="color:#1D9E75"></i>Carregando avaliações...</div>
-  <div id="wk-search-wrap" style="display:none;margin-bottom:10px">
+  <div style="display:none;margin-bottom:10px" id="wk-search-wrap">
     <input type="text" id="wk-search" placeholder="Filtrar por nome (ex: PNEUMO, CARDIO...)" oninput="filterWeeks()" style="font-size:13px"/>
   </div>
   <div id="list-weeks" class="wk-grid" style="display:none"></div>
   <div id="wk-count" style="font-size:11px;color:#888;margin-top:6px;display:none"></div>
 </div>
 
-<!-- T5: Alunos -->
+<!-- T5: Alunos - Modo Semana -->
 <div id="t-eval" class="screen">
   <div class="hdr">
     <div class="hdr-icon" id="ic-eval" style="background:#E1F5EE"><i class="ti ti-clipboard-check" style="color:#085041;font-size:17px"></i></div>
@@ -248,13 +275,24 @@ textarea.cmt:focus{border-color:#1D9E75;}
   <div id="list-students"></div>
   <div class="sub-wrap">
     <div class="sub-prog" id="sub-prog">Avalie todos os alunos para enviar</div>
-    <button class="btn-prim" id="btn-sub" onclick="doSubmit()" disabled style="background:#1D9E75">
+    <button class="btn-prim" id="btn-sub" onclick="doSubmitWeek()" disabled style="background:#1D9E75">
       <i class="ti ti-send"></i> Enviar ao Canvas
     </button>
   </div>
 </div>
 
-<!-- T6: Resultado -->
+<!-- T6: Alunos - Modo Semestral -->
+<div id="t-semestral" class="screen">
+  <div class="hdr">
+    <div class="hdr-icon" id="ic-sem" style="background:#E1F5EE"><i class="ti ti-calendar-stats" style="color:#085041;font-size:17px"></i></div>
+    <div><div class="hdr-title" id="title-sem">Modo Semestral</div><div class="hdr-sub" id="sub-sem"></div></div>
+    <div class="hdr-actions"><button class="btn-ico" onclick="go('t-groups')"><i class="ti ti-arrow-left"></i> Voltar</button></div>
+  </div>
+  <div id="load-sem" class="loading"><i class="ti ti-refresh" style="color:#1D9E75"></i>Carregando...</div>
+  <div id="list-sem-students" style="display:none"></div>
+</div>
+
+<!-- T7: Resultado -->
 <div id="t-result" class="screen">
   <div class="hdr">
     <div class="hdr-icon" style="background:#EAF3DE"><i class="ti ti-circle-check" style="color:#27500A;font-size:18px"></i></div>
@@ -262,16 +300,16 @@ textarea.cmt:focus{border-color:#1D9E75;}
   </div>
   <div class="ok-banner"><div class="ok-title"><i class="ti ti-check"></i> Notas enviadas ao Canvas</div><div class="ok-detail" id="detail-result"></div></div>
   <div id="errors-result" style="display:none"></div>
-  <div class="info-box no-print"><strong><i class="ti ti-calendar-x"></i> Portal do Professor:</strong> faltas desta semana salvas. <a href="#" onclick="goAbs();return false" style="color:#185FA5;font-weight:600">Ver relatório →</a></div>
+  <div class="info-box no-print"><strong><i class="ti ti-calendar-x"></i> Portal do Professor:</strong> faltas salvas. <a href="#" onclick="goAbs();return false" style="color:#185FA5;font-weight:600">Ver relatório →</a></div>
   <div style="display:flex;gap:7px;margin-top:1rem;flex-wrap:wrap" class="no-print">
     <button class="btn-sec" style="flex:1" onclick="go('t-courses')">Nova turma</button>
     <button class="btn-sec" style="flex:1" onclick="go('t-groups')">Novo grupo</button>
-    <button class="btn-sec" style="flex:1" onclick="go('t-week')">Nova semana</button>
+    <button class="btn-sec" style="flex:1" onclick="goBackFromResult()">Nova avaliação</button>
     <button class="btn-ico red" style="flex:1" onclick="goAbs()"><i class="ti ti-calendar-x"></i> Faltas</button>
   </div>
 </div>
 
-<!-- T7: Relatório de Faltas -->
+<!-- T8: Relatório de Faltas -->
 <div id="t-abs" class="screen">
   <div class="hdr">
     <div class="hdr-icon" style="background:#FCEBEB"><i class="ti ti-calendar-x" style="color:#791F1F;font-size:17px"></i></div>
@@ -288,625 +326,619 @@ textarea.cmt:focus{border-color:#1D9E75;}
   <div class="no-print" style="margin-top:4px"><button class="btn-dng" onclick="clearAbs()"><i class="ti ti-trash"></i> Limpar histórico</button></div>
 </div>
 
-</div><!-- #app -->
+</div>
 <script>
-// ── Config ──
-const PROXY = 'https://canvas-proxy.fredericopovoa.workers.dev';
-const ABS_KEY = 'canvas_abs_v4';
-const CAMPUS = {'50':'Porto Nacional','65':'Palmas'};
+var PROXY='https://canvas-proxy.fredericopovoa.workers.dev';
+var ABS_KEY='canvas_abs_v4';
+var SUBMITTED_KEY='canvas_submitted_v2';
+var CAMPUS={'50':'Porto Nacional','65':'Palmas'};
 
-const DISC = {
-  ham: {
-    id:'ham', name:'HAM', full:'Habilidades e Atitudes Médicas',
-    color:'#1D9E75', light:'#E1F5EE', dark:'#085041', total:12,
+var DISC={
+  ham:{id:'ham',name:'HAM',full:'Habilidades e Atitudes Médicas',color:'#1D9E75',light:'#E1F5EE',dark:'#085041',total:12,
     criteria:[
-      {id:'h0', label:'Postura e colaboração',                    ratings:[4,3,2,1,0]},
-      {id:'h1', label:'Conhecimento e aplicação clínica',         ratings:[4,3,2,1,0]},
-      {id:'h2', label:'Participação no debriefing e discussões',  ratings:[4,3,2,1,0]}
+      {id:'h0',label:'Postura e colaboração',ratings:[4,3,2,1,0]},
+      {id:'h1',label:'Conhecimento e aplicação clínica',ratings:[4,3,2,1,0]},
+      {id:'h2',label:'Participação no debriefing e discussões',ratings:[4,3,2,1,0]}
     ],
-    med: [4, 3, 3]   // Postura=4, Conhecimento=3, Participação=3
-  },
-  ci: {
-    id:'ci', name:'Clínicas Integradas I', full:'Ambulatório de Pneumologia',
-    color:'#378ADD', light:'#E6F1FB', dark:'#0C447C', total:30,
+    med:[4,3,3]},
+  ci:{id:'ci',name:'Clínicas Integradas I',full:'Ambulatório de Pneumologia',color:'#378ADD',light:'#E6F1FB',dark:'#0C447C',total:30,
     criteria:[
-      {id:'c0', label:'Assistência ao paciente',                        ratings:[5,3.5,2,0]},
-      {id:'c1', label:'Conhecimento médico',                            ratings:[5,3.5,2,0]},
-      {id:'c2', label:'Habilidades interpessoais',                      ratings:[5,3.5,2,0]},
-      {id:'c3', label:'Profissionalismo',                               ratings:[5,3.5,2,0]},
-      {id:'c4', label:'Prática baseada em Sistemas de Saúde',           ratings:[5,3.5,2,0]},
-      {id:'c5', label:'Aprendizagem baseada na prática e em melhorias', ratings:[5,3.5,2,0]}
+      {id:'c0',label:'Assistência ao paciente',ratings:[5,3.5,2,0]},
+      {id:'c1',label:'Conhecimento médico',ratings:[5,3.5,2,0]},
+      {id:'c2',label:'Habilidades interpessoais',ratings:[5,3.5,2,0]},
+      {id:'c3',label:'Profissionalismo',ratings:[5,3.5,2,0]},
+      {id:'c4',label:'Prática baseada em Sistemas de Saúde',ratings:[5,3.5,2,0]},
+      {id:'c5',label:'Aprendizagem baseada na prática e em melhorias',ratings:[5,3.5,2,0]}
     ],
-    med: [5, 3.5, 5, 5, 5, 5]  // tudo 5 exceto Conhecimento médico = 3.5
-  }
+    med:[5,3.5,5,5,5,5]}
 };
 
-// ── State ──
-var TOKEN='', D=null, course=null, group=null, week=null;
-var students=[], asmts={}, absStore={}, absView=null;
-var studentsCache={}; // cache by group key to avoid re-fetching
+// State
+var TOKEN='',D=null,course=null,group=null,week=null,appMode='semana';
+var students=[],asmts={},absStore={},absView=null;
+var studentsCache={},weeksCache={};
 
-// ── Helpers ──
-function go(id){ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');}); document.getElementById(id).classList.add('active'); }
-function fmt(n){ return Number.isInteger(n) ? String(n) : n.toFixed(1); }
-function initials(name){ return name.split(' ').filter(Boolean).slice(0,2).map(function(x){return x[0];}).join('').toUpperCase(); }
-function scCls(p,mx){ if(p===0) return 's0'; var r=p/mx; if(r<=0.4) return 's1'; if(r<=0.75) return 's2'; return 's3'; }
-function curSem(){ var n=new Date(); return n.getFullYear()+'/'+(n.getMonth()<6?1:2); }
-function setIcon(id){ ['ic-courses','ic-groups','ic-week','ic-eval'].forEach(function(x){ var el=document.getElementById(x); if(el){el.style.background=D.light; el.querySelector('i').style.color=D.dark;} }); document.getElementById('btn-sub').style.background=D.color; }
+// Helpers
+function go(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');}
+function fmt(n){return Number.isInteger(n)?String(n):n.toFixed(1);}
+function initials(name){return name.split(' ').filter(Boolean).slice(0,2).map(function(x){return x[0];}).join('').toUpperCase();}
+function scCls(p,mx){if(p===0)return 's0';var r=p/mx;if(r<=0.4)return 's1';if(r<=0.75)return 's2';return 's3';}
+function curSem(){var n=new Date();return n.getFullYear()+'/'+(n.getMonth()<6?1:2);}
+function setIcons(){if(!D)return;['ic-courses','ic-groups','ic-week','ic-eval','ic-sem'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.background=D.light;el.querySelector('i').style.color=D.dark;}});var bs=document.getElementById('btn-sub');if(bs)bs.style.background=D.color;}
 
+// Normalize search (handle typos)
+function norm(s){return s.toLowerCase().replace(/pmeumo/g,'pneumo').replace(/pneuom/g,'pneumo').replace(/amb de /g,'amb ').replace(/\s+/g,' ').trim();}
+
+// API
 async function api(path){
   var sep=path.includes('?')?'&':'?';
   var r=await fetch(PROXY+path+sep+'per_page=100',{headers:{'Authorization':'Bearer '+TOKEN}});
-  if(!r.ok) throw new Error('HTTP '+r.status);
+  if(!r.ok)throw new Error('HTTP '+r.status);
   return r.json();
 }
-
-// ── T1: Discipline ──
-function initDisc(){
-  var g=document.getElementById('disc-grid'); g.innerHTML='';
-  Object.values(DISC).forEach(function(d){
-    var b=document.createElement('button');
-    b.className='disc-btn'+(D&&D.id===d.id?' sel':'');
-    b.style.setProperty('--dc',d.color); b.style.setProperty('--dl',d.light);
-    b.innerHTML='<i class="ti ti-stethoscope disc-icon" style="color:'+d.color+'"></i>'
-      +'<div class="disc-name">'+d.name+'</div>'
-      +'<div class="disc-sub">'+d.full+'</div>'
-      +'<div class="disc-pts" style="background:'+d.light+';color:'+d.dark+'">'+d.total+' pts/semana</div>';
-    b.onclick=function(){
-      D=d;
-      localStorage.setItem('cdisc', d.id);
-      document.querySelectorAll('.disc-btn').forEach(function(x){x.classList.remove('sel');});
-      b.classList.add('sel');
-      document.getElementById('btn-conn').style.background=d.color;
-      document.getElementById('btn-conn').disabled=!document.getElementById('tok').value.trim();
-    };
-    g.appendChild(b);
-  });
-}
-
-function onTok(){ document.getElementById('btn-conn').disabled=!document.getElementById('tok').value.trim()||!D; }
-
-async function doConn(){
-  if(!D){ showDE('Selecione uma disciplina.'); return; }
-  TOKEN=document.getElementById('tok').value.trim();
-  if(!TOKEN){ showDE('Cole o token.'); return; }
-  var btn=document.getElementById('btn-conn');
-  btn.disabled=true; btn.innerHTML='<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i> Conectando...';
-  document.getElementById('disc-err').style.display='none';
-  try{
-    await api('/api/v1/users/self');
-    localStorage.setItem('ctok',TOKEN); localStorage.setItem('cdisc',D.id);
-    setIcon();
-    document.getElementById('sub-courses').textContent=D.name+' — '+D.full;
-    go('t-courses'); loadCourses();
-  } catch(e){
-    showDE('Não foi possível conectar. ('+e.message+')');
-    btn.disabled=false; btn.innerHTML='<i class="ti ti-plug"></i> Conectar ao Canvas'; btn.style.background=D.color;
-  }
-}
-function showDE(m){ var e=document.getElementById('disc-err'); e.textContent=m; e.style.display='block'; }
-function doLogout(){ localStorage.removeItem('ctok'); localStorage.removeItem('cdisc'); TOKEN=''; D=null; document.getElementById('tok').value=''; document.getElementById('btn-conn').disabled=true; initDisc(); go('t-disc'); }
-
-// ── T2: Courses ──
-async function loadCourses(){
-  document.getElementById('load-courses').style.display='block';
-  document.getElementById('list-courses').style.display='none';
-  try{
-    var all=await api('/api/v1/courses?enrollment_type=teacher&state[]=available');
-    var active=all.filter(function(c){return c.workflow_state==='available';});
-    function parseC(c){
-      var nm=c.name||'';
-      var sm=nm.match(/(\d{4})\/(\d)/i); var sem=sm?sm[0]:null;
-      var cm=nm.match(/(\d{2,3})\.I\./); var cc=cm?cm[1]:null;
-      var campus=cc&&CAMPUS[cc]?CAMPUS[cc]:(cc?'Campus '+cc:'');
-      return {sem:sem, campus:campus};
-    }
-    var sem=curSem();
-    var curr=active.filter(function(c){return parseC(c).sem===sem;});
-    var rest=active.filter(function(c){return !curr.includes(c);});
-    var showAll=false;
-    var list=document.getElementById('list-courses');
-    function render(){
-      list.innerHTML='';
-      var items=showAll?active:(curr.length?curr:active);
-      if(!items.length){ list.innerHTML='<p style="font-size:13px;color:#888;padding:6px 0">Nenhuma turma encontrada.</p>'; }
-      items.forEach(function(c){
-        var p=parseC(c); var meta=[p.campus,p.sem,'ID '+c.id].filter(Boolean).join(' · ');
-        var row=document.createElement('div'); row.className='list-row';
-        row.innerHTML='<div class="row-dot" style="background:'+D.color+'"></div>'
-          +'<div style="flex:1"><div class="row-name">'+c.name+'</div><div class="row-meta">'+meta+'</div></div>'
-          +'<i class="ti ti-chevron-right" style="color:#bbb;font-size:13px"></i>';
-        row.onclick=function(){selectCourse(c);};
-        list.appendChild(row);
-      });
-      if(rest.length){
-        var tog=document.createElement('div'); tog.className='sem-tog';
-        tog.textContent=showAll?'▲ Ocultar semestres anteriores':'▼ Ver semestres anteriores ('+rest.length+')';
-        tog.onclick=function(){showAll=!showAll; render();};
-        list.appendChild(tog);
-      }
-    }
-    render();
-    document.getElementById('load-courses').style.display='none';
-    list.style.display='block';
-  } catch(e){ document.getElementById('load-courses').innerHTML='<div class="err-box">'+e.message+'</div>'; }
-}
-
-// ── T3: Groups ──
-async function selectCourse(c){
-  course=c; group=null;
-  document.getElementById('title-groups').textContent=c.name;
-  go('t-groups');
-  document.getElementById('load-groups').style.display='block';
-  document.getElementById('list-groups').style.display='none';
-  try{
-    var cats=await api('/api/v1/courses/'+c.id+'/group_categories');
-    var cat=cats.find(function(x){return /pratica|prática|grupo/i.test(x.name);})||cats[0];
-    var groups=[]; if(cat) groups=await api('/api/v1/group_categories/'+cat.id+'/groups');
-    renderGroups(groups,cat);
-  } catch(e){ document.getElementById('load-groups').innerHTML='<div class="err-box">'+e.message+'</div>'; }
-}
-
-function renderGroups(groups,cat){
-  var cont=document.getElementById('list-groups'); cont.innerHTML='';
-  groups.sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true});});
-  if(groups.length){
-    var lbl=document.createElement('div'); lbl.className='sec-label';
-    lbl.textContent=(cat?cat.name+' — ':'')+groups.length+' grupos';
-    cont.appendChild(lbl);
-    var cols=['#1D9E75','#378ADD','#EF9F27','#E24B4A','#8B5CF6','#085041','#0C447C'];
-    groups.forEach(function(g,i){
-      var col=cols[i%cols.length]; var nm=g.name.match(/[0-9]+/);
-      var card=document.createElement('div'); card.className='group-card';
-      card.innerHTML='<div class="group-num" style="background:'+col+'20;color:'+col+'">'+(nm?nm[0]:i+1)+'</div>'
-        +'<div style="flex:1"><div class="group-name-txt">'+g.name+'</div><div class="group-meta">'+(g.members_count||'?')+' alunos</div></div>'
-        +'<i class="ti ti-chevron-right" style="color:#bbb;font-size:13px"></i>';
-      card.onclick=function(){selectGroup(g);};
-      cont.appendChild(card);
-    });
-  }
-  var all=document.createElement('div'); all.className='group-all';
-  all.innerHTML='<i class="ti ti-users" style="font-size:17px"></i>&nbsp;Ver todos os alunos da turma';
-  all.onclick=function(){selectGroup(null);};
-  cont.appendChild(all);
-  document.getElementById('load-groups').style.display='none';
-  cont.style.display='block';
-}
-
-async function selectGroup(g){
-  group=g;
-  if(g){
-    if(!g.memberIds){ // only fetch if not already cached
-      try{
-        var members=await api('/api/v1/groups/'+g.id+'/users');
-        g.memberIds=members.map(function(x){return x.id;});
-      } catch(e){ g.memberIds=[]; }
-    }
-  }
-  // Go to week selection
-  document.getElementById('title-week').textContent=course.name+(g?' · '+g.name:'');
-  document.getElementById('sub-week').textContent=D.name+' — '+D.total+' pts';
-  go('t-week');
-  loadWeeks();
-}
-
-// ── T4: Week ──
 async function apiAll(path){
-  // Fetch all pages using page numbers, 20 items per page for reliability
-  var results=[];
+  var results=[],page=1,perPage=75;
   var sep=path.includes('?')?'&':'?';
-  var extra='';
-  if(path.includes('/assignments')) extra='&include[]=all_dates&order_by=name';
-  var page=1;
-  var perPage=75;
+  var extra=path.includes('/assignments')?'&include[]=all_dates&order_by=name':'';
   while(true){
     var url=PROXY+path+sep+'per_page='+perPage+extra+'&page='+page;
     var r=await fetch(url,{headers:{'Authorization':'Bearer '+TOKEN}});
-    if(!r.ok) throw new Error('HTTP '+r.status);
+    if(!r.ok)throw new Error('HTTP '+r.status);
     var data=await r.json();
-    if(!data||!data.length) break;
+    if(!data||!data.length)break;
     results=results.concat(data);
-    if(data.length<perPage) break;
-    page++;
-    if(page>50) break; // supports up to 1000 assignments
+    if(data.length<perPage)break;
+    page++;if(page>50)break;
   }
-  // Deduplicate by id
+  // Deduplicate
   var seen={};
-  results=results.filter(function(item){
-    if(!item.id||seen[item.id]) return false;
-    seen[item.id]=true;
-    return true;
-  });
-  return results;
+  return results.filter(function(item){if(!item.id||seen[item.id])return false;seen[item.id]=true;return true;});
 }
 
-
-async function loadWeeks(){
-  document.getElementById('load-weeks').style.display='block';
-  var wl=document.getElementById('list-weeks'); wl.innerHTML=''; wl.style.display='none';
-  try{
-    // Fetch ALL assignments with pagination - no search filter
-    var asgns=await apiAll('/api/v1/courses/'+course.id+'/assignments');
-    // Filter only rubric evaluation assignments
-    var filtered=asgns.filter(function(a){
-      return /avalia[cç][aã]o do aluno/i.test(a.name);
-    });
-    // Fall back to all if none match filter
-    if(!filtered.length) filtered=asgns;
-    filtered.sort(function(a,b){return a.name.localeCompare(b.name);});
-    asgns=filtered;
-    asgns.forEach(function(a){
-      var btn=document.createElement('button'); btn.className='wk-btn';
-      var label=a.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim()||a.name;
-      btn.textContent=label;
-      // Mark already submitted weeks in green
-      if(isWeekSubmitted(course.id, D.id, a.id)){
-        btn.style.background='#E1F5EE'; btn.style.borderColor='#1D9E75'; btn.style.color='#085041';
-        btn.title='Já avaliada';
-        btn.innerHTML='<i class="ti ti-check" style="font-size:11px;margin-right:3px"></i>'+btn.textContent;
-      }
-      btn.onclick=function(){
-        week=a;
-        document.querySelectorAll('.wk-btn').forEach(function(b){
-          b.classList.remove('sel'); b.style.background=''; b.style.borderColor=''; b.style.color='';
-          // Restore submitted color if needed
-          var aid=b.getAttribute('data-aid');
-          if(aid&&isWeekSubmitted(course.id,D.id,parseInt(aid))){
-            b.style.background='#E1F5EE'; b.style.borderColor='#1D9E75'; b.style.color='#085041';
-          }
-        });
-        btn.classList.add('sel'); btn.style.background=D.light; btn.style.borderColor=D.color; btn.style.color=D.dark;
-        setTimeout(function(){ goToStudents(); }, 300);
-      };
-      btn.setAttribute('data-aid', a.id);
-      wl.appendChild(btn);
-    });
-    document.getElementById('load-weeks').style.display='none';
-    wl.style.display='flex';
-    document.getElementById('wk-search-wrap').style.display='block';
-    document.getElementById('wk-count').style.display='block';
-    document.getElementById('wk-count').textContent=asgns.length+' avaliações encontradas';
-  } catch(e){ document.getElementById('load-weeks').innerHTML='<div class="err-box">'+e.message+'</div>'; }
-}
-
-// ── T5: Students ──
-async function goToStudents(){
-  document.getElementById('title-eval').textContent=course.name+(group?' · '+group.name:'');
-  document.getElementById('sub-eval').textContent=D.name+' — '+(week?week.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim():'');
-  go('t-eval');
-  asmts={};
-  // Use cache key based on course + group
-  var cacheKey=course.id+'_'+(group?group.id:'all');
-  if(studentsCache[cacheKey]){
-    // Instant load from cache
-    students=studentsCache[cacheKey];
-    renderStudents();
-    document.getElementById('load-students').style.display='none';
-    updateSummary();
-    return;
-  }
-  document.getElementById('load-students').style.display='block';
-  document.getElementById('list-students').innerHTML='';
-  try{
-    var studs=await apiAll('/api/v1/courses/'+course.id+'/students');
-    if(group&&group.memberIds&&group.memberIds.length){
-      studs=studs.filter(function(s){return group.memberIds.indexOf(s.id)!==-1;});
-    }
-    studentsCache[cacheKey]=studs; // save to cache
-    students=studs;
-    renderStudents();
-    document.getElementById('load-students').style.display='none';
-    updateSummary();
-  } catch(e){ document.getElementById('load-students').innerHTML='<div class="err-box">'+e.message+'</div>'; }
-}
-
-function renderStudents(){
-  var cont=document.getElementById('list-students'); cont.innerHTML='';
-  // Use D (current discipline) captured at this moment
-  var myDisc=D;
-  var crit=myDisc.criteria;
-  var maxTot=crit.reduce(function(s,c){return s+Math.max.apply(null,c.ratings);},0);
-
-  students.forEach(function(s){
-    asmts[s.id]={absent:false, scores:{}, comment:''};
-    var sid=s.id;
-    var card=document.createElement('div'); card.className='stu-card';
-
-    // Header
-    var hdr=document.createElement('div'); hdr.className='stu-hdr';
-    hdr.innerHTML='<div class="stu-av" style="background:'+myDisc.light+';color:'+myDisc.dark+'">'+initials(s.name)+'</div>'
-      +'<div class="stu-name">'+s.name+'</div>'
-      +'<span class="bdg b-pend" id="bdg-'+sid+'">—</span>'
-      +'<i class="ti ti-chevron-down" style="font-size:12px;color:#aaa;margin-left:5px"></i>';
-    hdr.onclick=function(){ document.getElementById('bod-'+sid).classList.toggle('open'); };
-
-    // Body
-    var bod=document.createElement('div'); bod.className='stu-body'; bod.id='bod-'+sid;
-
-    // Quick buttons
-    var qw=document.createElement('div'); qw.className='quick-btns';
-    var qabs=document.createElement('button'); qabs.className='q-btn q-abs'; qabs.id='qa-'+sid;
-    qabs.innerHTML='<i class="ti ti-user-x"></i> Ausente';
-    qabs.onclick=function(){setProf(sid,'abs',myDisc);};
-    var qmax=document.createElement('button'); qmax.className='q-btn q-max'; qmax.id='qm-'+sid;
-    qmax.innerHTML='<i class="ti ti-star"></i> Máximo';
-    qmax.onclick=function(){setProf(sid,'max',myDisc);};
-    var qmed=document.createElement('button'); qmed.className='q-btn q-med'; qmed.id='qd-'+sid;
-    qmed.innerHTML='<i class="ti ti-adjustments"></i> Médio';
-    qmed.onclick=function(){setProf(sid,'med',myDisc);};
-    qw.appendChild(qabs); qw.appendChild(qmax); qw.appendChild(qmed);
-
-    // Criteria
-    var cw=document.createElement('div'); cw.id='cw-'+sid;
-    crit.forEach(function(cr){
-      var div=document.createElement('div'); div.className='crit';
-      var maxR=Math.max.apply(null,cr.ratings);
-      var opts='';
-      cr.ratings.forEach(function(p){
-        opts+='<div class="s-opt" id="o-'+sid+'-'+cr.id+'-'+p+'" onclick="setScore('+sid+',\''+cr.id+'\','+p+','+maxR+')">'+fmt(p)+'</div>';
-      });
-      div.innerHTML='<div class="crit-lbl">'+cr.label+'</div><div class="s-opts">'+opts+'</div>';
-      cw.appendChild(div);
-    });
-
-    // Comment
-    var cmw=document.createElement('div');
-    cmw.innerHTML='<textarea class="cmt" id="cm-'+sid+'" placeholder="Comentário opcional..." rows="2"></textarea>';
-    cmw.querySelector('textarea').oninput=function(){asmts[sid].comment=this.value;};
-
-    // Total
-    var tot=document.createElement('div'); tot.className='tot-row'; tot.style.background=myDisc.light;
-    tot.innerHTML='<span style="font-size:12px;font-weight:600;color:'+myDisc.dark+'">Total</span>'
-      +'<span style="font-size:17px;font-weight:700;color:'+myDisc.dark+'" id="tot-'+sid+'">— / '+maxTot+'</span>';
-
-    bod.appendChild(qw); bod.appendChild(cw); bod.appendChild(cmw); bod.appendChild(tot);
-    card.appendChild(hdr); card.appendChild(bod);
-    cont.appendChild(card);
-  });
-}
-
-function setProf(sid, prof, myDisc){
-  var a=asmts[sid]; var crit=myDisc.criteria;
-  document.getElementById('qa-'+sid).classList.toggle('on', prof==='abs');
-  document.getElementById('qm-'+sid).classList.toggle('on', prof==='max');
-  document.getElementById('qd-'+sid).classList.toggle('on', prof==='med');
-  var cw=document.getElementById('cw-'+sid);
-  if(prof==='abs'){
-    a.absent=true; cw.classList.add('dis');
-    crit.forEach(function(c){a.scores[c.id]=0;});
-    a.comment='Aluno ausente nesta atividade.';
-    document.getElementById('cm-'+sid).value=a.comment;
-  } else {
-    a.absent=false; cw.classList.remove('dis');
-    if(prof==='max'){
-      crit.forEach(function(c){a.scores[c.id]=Math.max.apply(null,c.ratings);});
-    } else {
-      // med: use myDisc.med array by index
-      crit.forEach(function(c,i){
-        a.scores[c.id]=myDisc.med[i]!==undefined ? myDisc.med[i] : Math.max.apply(null,c.ratings);
-      });
-    }
-    if(a.comment==='Aluno ausente nesta atividade.'){ a.comment=''; document.getElementById('cm-'+sid).value=''; }
-  }
-  updOpts(sid,crit); updTot(sid,crit,myDisc);
-  if(!a.absent){
-    var total=Object.values(a.scores).reduce(function(x,y){return x+y;},0);
-    updBdg(sid,total,false);
-  } else { updBdg(sid,0,true); }
-  updateSummary();
-}
-
-function setScore(sid,cid,pts,maxPts){
-  var a=asmts[sid]; if(a.absent) return;
-  a.scores[cid]=pts;
-  document.getElementById('qa-'+sid).classList.remove('on');
-  document.getElementById('qm-'+sid).classList.remove('on');
-  document.getElementById('qd-'+sid).classList.remove('on');
-  var myDisc=D; var crit=myDisc.criteria;
-  updOpts(sid,crit); updTot(sid,crit,myDisc);
-  if(crit.every(function(c){return a.scores[c.id]!==undefined;})){
-    var tot=Object.values(a.scores).reduce(function(x,y){return x+y;},0);
-    updBdg(sid,tot,false);
-  }
-  updateSummary();
-}
-
-function updOpts(sid,crit){
-  var a=asmts[sid];
-  crit.forEach(function(c){
-    c.ratings.forEach(function(p){
-      var el=document.getElementById('o-'+sid+'-'+c.id+'-'+p);
-      if(!el) return;
-      el.className='s-opt';
-      if(a.scores[c.id]===p) el.classList.add(scCls(p, Math.max.apply(null,c.ratings)));
-    });
-  });
-}
-
-function updTot(sid,crit,myDisc){
-  var a=asmts[sid];
-  var maxTot=crit.reduce(function(s,c){return s+Math.max.apply(null,c.ratings);},0);
-  var allDone=crit.every(function(c){return a.scores[c.id]!==undefined;});
-  var tot=allDone?Object.values(a.scores).reduce(function(x,y){return x+y;},0):null;
-  document.getElementById('tot-'+sid).textContent=(tot!==null?fmt(tot):'—')+' / '+maxTot;
-}
-
-function updBdg(sid,score,absent){
-  var b=document.getElementById('bdg-'+sid);
-  if(absent){ b.textContent='Ausente'; b.className='bdg b-abs'; }
-  else if(score===null){ b.textContent='—'; b.className='bdg b-pend'; }
-  else{ b.textContent=fmt(score)+' pts'; b.className='bdg b-done'; }
-}
-
-function isDone(sid){
-  var a=asmts[sid]; if(a.absent) return true;
-  return D.criteria.every(function(c){return a.scores[c.id]!==undefined;});
-}
-
-function updateSummary(){
-  var p=0,d=0,ab=0;
-  students.forEach(function(s){
-    if(asmts[s.id].absent) ab++;
-    else if(isDone(s.id)) d++;
-    else p++;
-  });
-  document.getElementById('cnt-p').textContent=p;
-  document.getElementById('cnt-d').textContent=d;
-  document.getElementById('cnt-a').textContent=ab;
-  var btn=document.getElementById('btn-sub');
-  var prog=document.getElementById('sub-prog');
-  var done=d+ab;
-  if(done===students.length&&students.length>0){
-    btn.disabled=false; prog.textContent='Todos avaliados ✓ Pronto para enviar.'; prog.style.color=D.color;
-  } else {
-    btn.disabled=true; prog.textContent=done+' de '+students.length+' alunos avaliados'; prog.style.color='#888';
-  }
-}
-
-// ── Submit ──
-async function doSubmit(){
-  var btn=document.getElementById('btn-sub');
-  btn.disabled=true; btn.innerHTML='<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i> Enviando...';
-  var myDisc=D; var crit=myDisc.criteria;
-  // Save absences first
-  saveAbsences(week.name);
-  absView=course.id+'_'+myDisc.id;
-  saveSubmittedWeek(course.id, myDisc.id, week.id);
-  // Always use local criteria — never trust Canvas rubric order
-  var ok=0, errs=[];
-  for(var i=0;i<students.length;i++){
-    var s=students[i]; var a=asmts[s.id];
-    var total=a.absent?0:Object.values(a.scores).reduce(function(x,y){return x+y;},0);
-    var payload={submission:{posted_grade:total}};
-    if(a.comment) payload.comment={text_comment:a.comment};
-    try{
-      var r=await fetch(PROXY+'/api/v1/courses/'+course.id+'/assignments/'+week.id+'/submissions/'+s.id,{
-        method:'PUT', headers:{'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'}, body:JSON.stringify(payload)
-      });
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      ok++;
-    } catch(e){ errs.push(s.name+': '+e.message); }
-  }
-  document.getElementById('sub-result').textContent=(week?week.name:'')+' — '+(group?group.name:'Turma toda');
-  document.getElementById('detail-result').textContent=ok+' aluno(s) enviados.'+(errs.length?' '+errs.length+' erro(s).':' Sem erros.');
-  if(errs.length){ var ed=document.getElementById('errors-result'); ed.style.display='block'; ed.innerHTML='<div class="err-box"><strong>Erros:</strong><br>'+errs.join('<br>')+'</div>'; }
-  go('t-result');
-}
-
-// ── Submitted weeks ──
-var SUBMITTED_KEY='canvas_submitted_v1';
-function loadSubmitted(){ try{ return JSON.parse(localStorage.getItem(SUBMITTED_KEY)||'{}'); }catch(e){ return {}; } }
+// Submitted weeks
+function loadSubmitted(){try{return JSON.parse(localStorage.getItem(SUBMITTED_KEY)||'{}');}catch(e){return {};}}
 function saveSubmittedWeek(courseId,discId,weekId){
-  var s=loadSubmitted();
-  var k=courseId+'_'+discId;
-  if(!s[k]) s[k]=[];
-  if(s[k].indexOf(weekId)===-1) s[k].push(weekId);
+  var s=loadSubmitted();var k=courseId+'_'+discId;
+  if(!s[k])s[k]=[];if(s[k].indexOf(String(weekId))===-1)s[k].push(String(weekId));
   localStorage.setItem(SUBMITTED_KEY,JSON.stringify(s));
 }
 function isWeekSubmitted(courseId,discId,weekId){
-  var s=loadSubmitted();
-  var k=courseId+'_'+discId;
-  return s[k]&&s[k].indexOf(weekId)!==-1;
+  var s=loadSubmitted();var k=courseId+'_'+discId;
+  return !!(s[k]&&s[k].indexOf(String(weekId))!==-1);
+}
+
+// Mode selector
+function selectMode(m){
+  appMode=m;
+  document.getElementById('mode-semana').classList.toggle('sel',m==='semana');
+  document.getElementById('mode-semestral').classList.toggle('sel',m==='semestral');
+}
+
+// T1: Discipline
+function initDisc(){
+  var g=document.getElementById('disc-grid');g.innerHTML='';
+  Object.values(DISC).forEach(function(d){
+    var b=document.createElement('button');
+    b.className='disc-btn'+(D&&D.id===d.id?' sel':'');
+    b.style.setProperty('--dc',d.color);b.style.setProperty('--dl',d.light);
+    b.innerHTML='<i class="ti ti-stethoscope disc-icon" style="color:'+d.color+'"></i><div class="disc-name">'+d.name+'</div><div class="disc-sub">'+d.full+'</div><div class="disc-pts" style="background:'+d.light+';color:'+d.dark+'">'+d.total+' pts/semana</div>';
+    b.onclick=function(){D=d;localStorage.setItem('cdisc',d.id);document.querySelectorAll('.disc-btn').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');document.getElementById('btn-conn').style.background=d.color;document.getElementById('btn-conn').disabled=!document.getElementById('tok').value.trim();};
+    g.appendChild(b);
+  });
+}
+function onTok(){document.getElementById('btn-conn').disabled=!document.getElementById('tok').value.trim()||!D;}
+async function doConn(){
+  if(!D){showDE('Selecione uma disciplina.');return;}
+  TOKEN=document.getElementById('tok').value.trim();
+  if(!TOKEN){showDE('Cole o token.');return;}
+  var btn=document.getElementById('btn-conn');btn.disabled=true;btn.innerHTML='<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i> Conectando...';
+  document.getElementById('disc-err').style.display='none';
+  try{
+    await api('/api/v1/users/self');
+    localStorage.setItem('ctok',TOKEN);localStorage.setItem('cdisc',D.id);
+    setIcons();document.getElementById('sub-courses').textContent=D.name+' — '+D.full;
+    go('t-courses');loadCourses();
+  }catch(e){showDE('Não foi possível conectar. ('+e.message+')');btn.disabled=false;btn.innerHTML='<i class="ti ti-plug"></i> Conectar ao Canvas';btn.style.background=D?D.color:'#1D9E75';}
+}
+function showDE(m){var e=document.getElementById('disc-err');e.textContent=m;e.style.display='block';}
+function doLogout(){localStorage.removeItem('ctok');localStorage.removeItem('cdisc');TOKEN='';D=null;document.getElementById('tok').value='';document.getElementById('btn-conn').disabled=true;initDisc();go('t-disc');}
+
+// T2: Courses
+async function loadCourses(){
+  document.getElementById('load-courses').style.display='block';document.getElementById('list-courses').style.display='none';
+  try{
+    var all=await api('/api/v1/courses?enrollment_type=teacher&state[]=available');
+    var active=all.filter(function(c){return c.workflow_state==='available';});
+    function parseC(c){var nm=c.name||'';var sm=nm.match(/(\d{4})\/(\d)/i);var sem=sm?sm[0]:null;var cm=nm.match(/(\d{2,3})\.I\./);var cc=cm?cm[1]:null;var campus=cc&&CAMPUS[cc]?CAMPUS[cc]:(cc?'Campus '+cc:'');return{sem:sem,campus:campus};}
+    var sem=curSem();
+    var curr=active.filter(function(c){return parseC(c).sem===sem;});
+    var rest=active.filter(function(c){return !curr.includes(c);});
+    var showAll=false;var list=document.getElementById('list-courses');
+    function render(){
+      list.innerHTML='';var items=showAll?active:(curr.length?curr:active);
+      if(!items.length){list.innerHTML='<p style="font-size:13px;color:#888;padding:6px 0">Nenhuma turma encontrada.</p>';}
+      items.forEach(function(c){
+        var p=parseC(c);var meta=[p.campus,p.sem,'ID '+c.id].filter(Boolean).join(' · ');
+        var row=document.createElement('div');row.className='list-row';
+        row.innerHTML='<div class="row-dot" style="background:'+D.color+'"></div><div style="flex:1"><div class="row-name">'+c.name+'</div><div class="row-meta">'+meta+'</div></div><i class="ti ti-chevron-right" style="color:#bbb;font-size:13px"></i>';
+        row.onclick=function(){selectCourse(c);};list.appendChild(row);
+      });
+      if(rest.length){var tog=document.createElement('div');tog.className='sem-tog';tog.textContent=showAll?'▲ Ocultar semestres anteriores':'▼ Ver semestres anteriores ('+rest.length+')';tog.onclick=function(){showAll=!showAll;render();};list.appendChild(tog);}
+    }
+    render();document.getElementById('load-courses').style.display='none';list.style.display='block';
+  }catch(e){document.getElementById('load-courses').innerHTML='<div class="err-box">'+e.message+'</div>';}
+}
+
+// T3: Groups
+async function selectCourse(c){
+  course=c;group=null;
+  document.getElementById('title-groups').textContent=c.name;
+  document.getElementById('sub-groups').textContent=D.name;
+  go('t-groups');
+  document.getElementById('load-groups').style.display='block';document.getElementById('list-groups').style.display='none';
+  try{
+    var cats=await api('/api/v1/courses/'+c.id+'/group_categories');
+    var cat=cats.find(function(x){return /pratica|prática|grupo/i.test(x.name);})||cats[0];
+    var groups=[];if(cat)groups=await api('/api/v1/group_categories/'+cat.id+'/groups');
+    renderGroups(groups,cat);
+  }catch(e){document.getElementById('load-groups').innerHTML='<div class="err-box">'+e.message+'</div>';}
+}
+function renderGroups(groups,cat){
+  var cont=document.getElementById('list-groups');cont.innerHTML='';
+  groups.sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true});});
+  if(groups.length){
+    var lbl=document.createElement('div');lbl.className='sec-label';lbl.textContent=(cat?cat.name+' — ':'')+groups.length+' grupos';cont.appendChild(lbl);
+    var cols=['#1D9E75','#378ADD','#EF9F27','#E24B4A','#8B5CF6','#085041','#0C447C'];
+    groups.forEach(function(g,i){
+      var col=cols[i%cols.length];var nm=g.name.match(/[0-9]+/);
+      var card=document.createElement('div');card.className='group-card';
+      card.innerHTML='<div class="group-num" style="background:'+col+'20;color:'+col+'">'+(nm?nm[0]:i+1)+'</div><div style="flex:1"><div class="group-name-txt">'+g.name+'</div><div class="group-meta">'+(g.members_count||'?')+' alunos</div></div><i class="ti ti-chevron-right" style="color:#bbb;font-size:13px"></i>';
+      card.onclick=function(){selectGroup(g);};cont.appendChild(card);
+    });
+  }
+  var all=document.createElement('div');all.className='group-all';all.innerHTML='<i class="ti ti-users" style="font-size:17px"></i>&nbsp;Ver todos os alunos da turma';all.onclick=function(){selectGroup(null);};cont.appendChild(all);
+  document.getElementById('load-groups').style.display='none';cont.style.display='block';
+}
+async function selectGroup(g){
+  group=g;
+  if(g&&!g.memberIds){try{var m=await api('/api/v1/groups/'+g.id+'/users');g.memberIds=m.map(function(x){return x.id;});}catch(e){g.memberIds=[];}}
+  if(appMode==='semana'){
+    document.getElementById('title-week').textContent=course.name+(g?' · '+g.name:'');
+    document.getElementById('sub-week').textContent=D.name+' — '+D.total+' pts';
+    go('t-week');loadWeeks();
+  } else {
+    goSemestral();
+  }
+}
+
+// ── WEEKS (shared) ──
+async function loadWeeks(){
+  document.getElementById('load-weeks').style.display='block';
+  var wl=document.getElementById('list-weeks');wl.innerHTML='';wl.style.display='none';
+  document.getElementById('wk-search-wrap').style.display='none';
+  document.getElementById('wk-count').style.display='none';
+  var cacheKey=course.id;
+  if(weeksCache[cacheKey]){renderWeekButtons(weeksCache[cacheKey]);return;}
+  try{
+    var asgns=await apiAll('/api/v1/courses/'+course.id+'/assignments');
+    var filtered=asgns.filter(function(a){return /avalia[cç][aã]o do aluno/i.test(a.name);});
+    if(!filtered.length)filtered=asgns;
+    filtered.sort(function(a,b){return a.name.localeCompare(b.name);});
+    weeksCache[cacheKey]=filtered;
+    renderWeekButtons(filtered);
+  }catch(e){document.getElementById('load-weeks').innerHTML='<div class="err-box">'+e.message+'</div>';}
+}
+function renderWeekButtons(asgns){
+  var wl=document.getElementById('list-weeks');wl.innerHTML='';
+  asgns.forEach(function(a){
+    var btn=document.createElement('button');btn.className='wk-btn';
+    var label=a.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim()||a.name;
+    var submitted=isWeekSubmitted(course.id,D.id,a.id);
+    if(submitted){btn.classList.add('done');btn.innerHTML='<i class="ti ti-check" style="font-size:10px;margin-right:2px"></i>'+label;}
+    else{btn.textContent=label;}
+    btn.setAttribute('data-norm',norm(label));
+    btn.onclick=function(){
+      week=a;
+      document.querySelectorAll('.wk-btn').forEach(function(b){b.classList.remove('sel');b.style.borderWidth='';});
+      btn.classList.add('sel');btn.style.background=D.light;btn.style.borderColor=D.color;btn.style.color=D.dark;btn.style.borderWidth='2px';
+      setTimeout(function(){goToStudents();},250);
+    };
+    wl.appendChild(btn);
+  });
+  document.getElementById('load-weeks').style.display='none';
+  wl.style.display='flex';
+  document.getElementById('wk-search-wrap').style.display='block';
+  document.getElementById('wk-count').style.display='block';
+  document.getElementById('wk-count').textContent=asgns.length+' avaliações encontradas';
+}
+function filterWeeks(){
+  var q=norm(document.getElementById('wk-search').value||'');
+  var btns=document.getElementById('list-weeks').querySelectorAll('button');
+  var shown=0;
+  btns.forEach(function(b){var match=!q||b.getAttribute('data-norm').includes(q);b.style.display=match?'':'none';if(match)shown++;});
+  document.getElementById('wk-count').textContent=shown+' de '+btns.length+' avaliações';
+}
+
+// ── STUDENTS cache ──
+async function getStudents(){
+  var cacheKey=course.id+'_'+(group?group.id:'all');
+  if(studentsCache[cacheKey])return studentsCache[cacheKey];
+  var studs=await apiAll('/api/v1/courses/'+course.id+'/students');
+  if(group&&group.memberIds&&group.memberIds.length){studs=studs.filter(function(s){return group.memberIds.indexOf(s.id)!==-1;});}
+  studentsCache[cacheKey]=studs;
+  return studs;
+}
+
+// ── MODO SEMANA ──
+async function goToStudents(){
+  var myDisc=D;
+  document.getElementById('title-eval').textContent=course.name+(group?' · '+group.name:'');
+  document.getElementById('sub-eval').textContent=myDisc.name+' — '+(week?week.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim():'');
+  go('t-eval');asmts={};
+  var cacheKey=course.id+'_'+(group?group.id:'all');
+  if(studentsCache[cacheKey]){students=studentsCache[cacheKey];renderStudents(myDisc);updateSummary();return;}
+  document.getElementById('load-students').style.display='block';document.getElementById('list-students').innerHTML='';
+  try{
+    students=await getStudents();
+    renderStudents(myDisc);document.getElementById('load-students').style.display='none';updateSummary();
+  }catch(e){document.getElementById('load-students').innerHTML='<div class="err-box">'+e.message+'</div>';}
+}
+
+function renderStudents(myDisc){
+  var cont=document.getElementById('list-students');cont.innerHTML='';
+  var crit=myDisc.criteria;var maxTot=crit.reduce(function(s,c){return s+Math.max.apply(null,c.ratings);},0);
+  students.forEach(function(s){
+    asmts[s.id]={absent:false,scores:{},comment:''};
+    var sid=s.id;var card=document.createElement('div');card.className='stu-card';
+    var hdr=document.createElement('div');hdr.className='stu-hdr';
+    hdr.innerHTML='<div class="stu-av" style="background:'+myDisc.light+';color:'+myDisc.dark+'">'+initials(s.name)+'</div><div class="stu-name">'+s.name+'</div><span class="bdg b-pend" id="bdg-'+sid+'">—</span><i class="ti ti-chevron-down" style="font-size:12px;color:#aaa;margin-left:5px"></i>';
+    hdr.onclick=function(){document.getElementById('bod-'+sid).classList.toggle('open');};
+    var bod=document.createElement('div');bod.className='stu-body';bod.id='bod-'+sid;
+    bod.appendChild(makeQuickBtns(sid,myDisc));
+    bod.appendChild(makeCritWrap(sid,crit,myDisc));
+    bod.appendChild(makeCmt(sid));
+    bod.appendChild(makeTotRow(sid,crit,myDisc,maxTot));
+    card.appendChild(hdr);card.appendChild(bod);cont.appendChild(card);
+  });
+}
+
+function makeQuickBtns(sid,myDisc){
+  var qw=document.createElement('div');qw.className='quick-btns';
+  var qa=document.createElement('button');qa.className='q-btn q-abs';qa.id='qa-'+sid;qa.innerHTML='<i class="ti ti-user-x"></i> Ausente';qa.onclick=function(){setProf(sid,'abs',myDisc);};
+  var qm=document.createElement('button');qm.className='q-btn q-max';qm.id='qm-'+sid;qm.innerHTML='<i class="ti ti-star"></i> Máximo';qm.onclick=function(){setProf(sid,'max',myDisc);};
+  var qd=document.createElement('button');qd.className='q-btn q-med';qd.id='qd-'+sid;qd.innerHTML='<i class="ti ti-adjustments"></i> Médio';qd.onclick=function(){setProf(sid,'med',myDisc);};
+  qw.appendChild(qa);qw.appendChild(qm);qw.appendChild(qd);return qw;
+}
+function makeCritWrap(sid,crit,myDisc){
+  var cw=document.createElement('div');cw.id='cw-'+sid;
+  crit.forEach(function(cr){
+    var div=document.createElement('div');div.className='crit';var maxR=Math.max.apply(null,cr.ratings);
+    var opts='';cr.ratings.forEach(function(p){opts+='<div class="s-opt" id="o-'+sid+'-'+cr.id+'-'+p+'" onclick="setScore(\''+sid+'\',\''+cr.id+'\','+p+','+maxR+',\''+myDisc.id+'\')">'+fmt(p)+'</div>';});
+    div.innerHTML='<div class="crit-lbl">'+cr.label+'</div><div class="s-opts">'+opts+'</div>';
+    cw.appendChild(div);
+  });
+  return cw;
+}
+function makeCmt(sid){
+  var w=document.createElement('div');w.innerHTML='<textarea class="cmt" id="cm-'+sid+'" placeholder="Comentário opcional..." rows="2"></textarea>';
+  w.querySelector('textarea').oninput=function(){asmts[sid].comment=this.value;};return w;
+}
+function makeTotRow(sid,crit,myDisc,maxTot){
+  var t=document.createElement('div');t.className='tot-row';t.style.background=myDisc.light;
+  t.innerHTML='<span style="font-size:12px;font-weight:600;color:'+myDisc.dark+'">Total</span><span style="font-size:17px;font-weight:700;color:'+myDisc.dark+'" id="tot-'+sid+'">— / '+maxTot+'</span>';
+  return t;
+}
+
+function setProf(sid,prof,myDisc){
+  if(!asmts[sid])return;
+  var a=asmts[sid];var crit=myDisc.criteria;
+  document.getElementById('qa-'+sid).classList.toggle('on',prof==='abs');
+  document.getElementById('qm-'+sid).classList.toggle('on',prof==='max');
+  document.getElementById('qd-'+sid).classList.toggle('on',prof==='med');
+  var cw=document.getElementById('cw-'+sid);
+  if(prof==='abs'){
+    a.absent=true;if(cw)cw.classList.add('dis');
+    crit.forEach(function(c){a.scores[c.id]=0;});
+    a.comment='Aluno ausente nesta atividade.';document.getElementById('cm-'+sid).value=a.comment;
+  }else{
+    a.absent=false;if(cw)cw.classList.remove('dis');
+    if(prof==='max'){crit.forEach(function(c){a.scores[c.id]=Math.max.apply(null,c.ratings);});}
+    else{crit.forEach(function(c,i){a.scores[c.id]=myDisc.med[i]!==undefined?myDisc.med[i]:Math.max.apply(null,c.ratings);});}
+    if(a.comment==='Aluno ausente nesta atividade.'){a.comment='';document.getElementById('cm-'+sid).value='';}
+  }
+  updOpts(sid,crit);updTot(sid,crit,myDisc);
+  var total=a.absent?0:Object.values(a.scores).reduce(function(x,y){return x+y;},0);
+  updBdg(sid,a.absent?0:total,a.absent);
+  if(typeof updateSummary==='function')updateSummary();
+}
+
+function setScore(sid,cid,pts,maxPts,discId){
+  var myDisc=DISC[discId]||D;
+  var a=asmts[sid];if(!a||a.absent)return;
+  a.scores[cid]=pts;
+  document.getElementById('qa-'+sid).classList.remove('on');document.getElementById('qm-'+sid).classList.remove('on');document.getElementById('qd-'+sid).classList.remove('on');
+  var crit=myDisc.criteria;updOpts(sid,crit);updTot(sid,crit,myDisc);
+  if(crit.every(function(c){return a.scores[c.id]!==undefined;})){var tot=Object.values(a.scores).reduce(function(x,y){return x+y;},0);updBdg(sid,tot,false);}
+  if(typeof updateSummary==='function')updateSummary();
+  if(typeof updateSemSummary==='function')updateSemSummary();
+}
+
+function updOpts(sid,crit){
+  var a=asmts[sid];if(!a)return;
+  crit.forEach(function(c){c.ratings.forEach(function(p){var el=document.getElementById('o-'+sid+'-'+c.id+'-'+p);if(!el)return;el.className='s-opt';if(a.scores[c.id]===p)el.classList.add(scCls(p,Math.max.apply(null,c.ratings)));});});
+}
+function updTot(sid,crit,myDisc){
+  var a=asmts[sid];if(!a)return;
+  var maxTot=crit.reduce(function(s,c){return s+Math.max.apply(null,c.ratings);},0);
+  var allDone=crit.every(function(c){return a.scores[c.id]!==undefined;});
+  var tot=allDone?Object.values(a.scores).reduce(function(x,y){return x+y;},0):null;
+  var el=document.getElementById('tot-'+sid);if(el)el.textContent=(tot!==null?fmt(tot):'—')+' / '+maxTot;
+}
+function updBdg(sid,score,absent){
+  var b=document.getElementById('bdg-'+sid);if(!b)return;
+  if(absent){b.textContent='Ausente';b.className='bdg b-abs';}
+  else if(score===null||score===undefined){b.textContent='—';b.className='bdg b-pend';}
+  else{b.textContent=fmt(score)+' pts';b.className='bdg b-done';}
+}
+function isDone(sid){var a=asmts[sid];if(!a)return false;if(a.absent)return true;return D.criteria.every(function(c){return a.scores[c.id]!==undefined;});}
+function updateSummary(){
+  var p=0,d=0,ab=0;students.forEach(function(s){if(asmts[s.id]&&asmts[s.id].absent)ab++;else if(isDone(s.id))d++;else p++;});
+  document.getElementById('cnt-p').textContent=p;document.getElementById('cnt-d').textContent=d;document.getElementById('cnt-a').textContent=ab;
+  var btn=document.getElementById('btn-sub');var prog=document.getElementById('sub-prog');var done=d+ab;
+  if(done===students.length&&students.length>0){btn.disabled=false;prog.textContent='Todos avaliados ✓ Pronto para enviar.';prog.style.color=D.color;}
+  else{btn.disabled=true;prog.textContent=done+' de '+students.length+' avaliados';prog.style.color='#888';}
+}
+
+async function doSubmitWeek(){
+  var myDisc=D;var btn=document.getElementById('btn-sub');
+  btn.disabled=true;btn.innerHTML='<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i> Enviando...';
+  saveAbsences(week.name);saveSubmittedWeek(course.id,myDisc.id,week.id);
+  var ok=0,errs=[];
+  for(var i=0;i<students.length;i++){
+    var s=students[i];var a=asmts[s.id];
+    var total=a.absent?0:Object.values(a.scores).reduce(function(x,y){return x+y;},0);
+    var payload={submission:{posted_grade:total}};
+    if(a.comment)payload.comment={text_comment:a.comment};
+    try{var r=await fetch(PROXY+'/api/v1/courses/'+course.id+'/assignments/'+week.id+'/submissions/'+s.id,{method:'PUT',headers:{'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!r.ok)throw new Error('HTTP '+r.status);ok++;}
+    catch(e){errs.push(s.name+': '+e.message);}
+  }
+  // Update week button color
+  var btn2=document.querySelector('.wk-btn.sel');
+  if(btn2){btn2.classList.add('done');btn2.classList.remove('sel');btn2.style.background='';btn2.style.borderColor='';btn2.style.color='';btn2.style.borderWidth='';var lbl=btn2.textContent.replace(/^✓\s*/,'');btn2.innerHTML='<i class="ti ti-check" style="font-size:10px;margin-right:2px"></i>'+lbl;}
+  showResult(week.name+(group?' · '+group.name:''),ok,errs,'semana');
+}
+function goBackFromResult(){if(appMode==='semestral')go('t-semestral');else go('t-week');}
+
+// ── MODO SEMESTRAL ──
+var semStudents=[],semWeeks=[],semAsmts={};
+
+async function goSemestral(){
+  var myDisc=D;
+  document.getElementById('title-sem').textContent=course.name+(group?' · '+group.name:'');
+  document.getElementById('sub-sem').textContent=myDisc.name+' — Lançamento semestral';
+  go('t-semestral');
+  document.getElementById('load-sem').style.display='block';
+  document.getElementById('list-sem-students').style.display='none';
+  semAsmts={};
+  try{
+    var [studs,asgns]=await Promise.all([getStudents(),loadWeeksData()]);
+    semStudents=studs;semWeeks=asgns;
+    renderSemestral(myDisc);
+    document.getElementById('load-sem').style.display='none';
+    document.getElementById('list-sem-students').style.display='block';
+  }catch(e){document.getElementById('load-sem').innerHTML='<div class="err-box">'+e.message+'</div>';}
+}
+
+async function loadWeeksData(){
+  var cacheKey=course.id;
+  if(weeksCache[cacheKey])return weeksCache[cacheKey];
+  var asgns=await apiAll('/api/v1/courses/'+course.id+'/assignments');
+  var filtered=asgns.filter(function(a){return /avalia[cç][aã]o do aluno/i.test(a.name);});
+  if(!filtered.length)filtered=asgns;
+  filtered.sort(function(a,b){return a.name.localeCompare(b.name);});
+  weeksCache[cacheKey]=filtered;return filtered;
+}
+
+function renderSemestral(myDisc){
+  var cont=document.getElementById('list-sem-students');cont.innerHTML='';
+  var crit=myDisc.criteria;
+  semStudents.forEach(function(s){
+    semAsmts[s.id]={};semWeeks.forEach(function(w){semAsmts[s.id][w.id]={absent:false,scores:{},comment:'',touched:false};});
+    var card=document.createElement('div');card.className='stu-card';
+    var hdr=document.createElement('div');hdr.className='stu-hdr';
+    hdr.innerHTML='<div class="stu-av" style="background:'+myDisc.light+';color:'+myDisc.dark+'">'+initials(s.name)+'</div><div class="stu-name">'+s.name+'</div><span class="bdg b-pend" id="sbdg-'+s.id+'">0/'+semWeeks.length+'</span><i class="ti ti-chevron-down" style="font-size:12px;color:#aaa;margin-left:5px"></i>';
+    hdr.onclick=function(){document.getElementById('sbod-'+s.id).classList.toggle('open');};
+    var bod=document.createElement('div');bod.className='stu-body';bod.id='sbod-'+s.id;
+    // Week sections inside student
+    semWeeks.forEach(function(w){
+      var wLabel=w.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim()||w.name;
+      var submitted=isWeekSubmitted(course.id,myDisc.id,w.id);
+      var sec=document.createElement('div');sec.className='sem-wk-section';
+      var wHdr=document.createElement('div');
+      wHdr.className='sem-wk-hdr'+(submitted?' done':'');
+      wHdr.innerHTML='<i class="ti ti-calendar-event" style="font-size:13px;color:#888"></i><span class="sem-wk-title">'+wLabel+'</span>'+(submitted?'<span class="sem-wk-badge" style="background:#E1F5EE;color:#085041"><i class="ti ti-check"></i> Enviada</span>':'<span class="sem-wk-badge" style="background:#f0ede6;color:#888">Pendente</span>');
+      var wBody=document.createElement('div');wBody.className='sem-wk-body';wBody.id='swb-'+s.id+'-'+w.id;
+      // Quick buttons for this week
+      var qw=makeQuickBtnsSem(s.id,w.id,myDisc);
+      wBody.appendChild(qw);
+      wBody.appendChild(makeCritWrapSem(s.id,w.id,crit,myDisc));
+      wBody.appendChild(makeCmtSem(s.id,w.id));
+      wBody.appendChild(makeTotRowSem(s.id,w.id,crit,myDisc));
+      wHdr.onclick=function(){wBody.classList.toggle('open');};
+      sec.appendChild(wHdr);sec.appendChild(wBody);bod.appendChild(sec);
+    });
+    card.appendChild(hdr);card.appendChild(bod);cont.appendChild(card);
+  });
+  // Submit all button
+  var subWrap=document.createElement('div');subWrap.className='sub-wrap';
+  subWrap.innerHTML='<div class="sub-prog" id="sem-prog">Preencha as semanas desejadas e envie</div><button class="btn-prim" id="btn-sem-sub" onclick="doSubmitSemestral()" style="background:'+myDisc.color+'"><i class="ti ti-send"></i> Enviar tudo ao Canvas</button>';
+  cont.appendChild(subWrap);
+}
+
+function makeQuickBtnsSem(sid,wid,myDisc){
+  var qw=document.createElement('div');qw.className='quick-btns';
+  var pfx='sw-'+sid+'-'+wid+'-';
+  var qa=document.createElement('button');qa.className='q-btn q-abs';qa.id=pfx+'abs';qa.innerHTML='<i class="ti ti-user-x"></i> Ausente';qa.onclick=function(){setProfSem(sid,wid,'abs',myDisc);};
+  var qm=document.createElement('button');qm.className='q-btn q-max';qm.id=pfx+'max';qm.innerHTML='<i class="ti ti-star"></i> Máximo';qm.onclick=function(){setProfSem(sid,wid,'max',myDisc);};
+  var qd=document.createElement('button');qd.className='q-btn q-med';qd.id=pfx+'med';qd.innerHTML='<i class="ti ti-adjustments"></i> Médio';qd.onclick=function(){setProfSem(sid,wid,'med',myDisc);};
+  qw.appendChild(qa);qw.appendChild(qm);qw.appendChild(qd);return qw;
+}
+function makeCritWrapSem(sid,wid,crit,myDisc){
+  var cw=document.createElement('div');cw.id='scw-'+sid+'-'+wid;
+  crit.forEach(function(cr){
+    var div=document.createElement('div');div.className='crit';var maxR=Math.max.apply(null,cr.ratings);
+    var opts='';cr.ratings.forEach(function(p){opts+='<div class="s-opt" id="so-'+sid+'-'+wid+'-'+cr.id+'-'+p+'" onclick="setScoreSem(\''+sid+'\',\''+wid+'\',\''+cr.id+'\','+p+','+maxR+',\''+myDisc.id+'\')">'+fmt(p)+'</div>';});
+    div.innerHTML='<div class="crit-lbl">'+cr.label+'</div><div class="s-opts">'+opts+'</div>';
+    cw.appendChild(div);
+  });return cw;
+}
+function makeCmtSem(sid,wid){
+  var w=document.createElement('div');w.innerHTML='<textarea class="cmt" id="scm-'+sid+'-'+wid+'" placeholder="Comentário opcional..." rows="2"></textarea>';
+  w.querySelector('textarea').oninput=function(){if(semAsmts[sid]&&semAsmts[sid][wid])semAsmts[sid][wid].comment=this.value;};return w;
+}
+function makeTotRowSem(sid,wid,crit,myDisc){
+  var maxTot=crit.reduce(function(s,c){return s+Math.max.apply(null,c.ratings);},0);
+  var t=document.createElement('div');t.className='tot-row';t.style.background=myDisc.light;
+  t.innerHTML='<span style="font-size:12px;font-weight:600;color:'+myDisc.dark+'">Total</span><span style="font-size:17px;font-weight:700;color:'+myDisc.dark+'" id="stot-'+sid+'-'+wid+'">— / '+maxTot+'</span>';
+  return t;
+}
+
+function setProfSem(sid,wid,prof,myDisc){
+  if(!semAsmts[sid]||!semAsmts[sid][wid])return;
+  var a=semAsmts[sid][wid];var crit=myDisc.criteria;a.touched=true;
+  var pfx='sw-'+sid+'-'+wid+'-';
+  document.getElementById(pfx+'abs').classList.toggle('on',prof==='abs');
+  document.getElementById(pfx+'max').classList.toggle('on',prof==='max');
+  document.getElementById(pfx+'med').classList.toggle('on',prof==='med');
+  var cw=document.getElementById('scw-'+sid+'-'+wid);
+  if(prof==='abs'){
+    a.absent=true;if(cw)cw.classList.add('dis');
+    crit.forEach(function(c){a.scores[c.id]=0;});
+    a.comment='Aluno ausente nesta atividade.';
+    var cmEl=document.getElementById('scm-'+sid+'-'+wid);if(cmEl)cmEl.value=a.comment;
+  }else{
+    a.absent=false;if(cw)cw.classList.remove('dis');
+    if(prof==='max'){crit.forEach(function(c){a.scores[c.id]=Math.max.apply(null,c.ratings);});}
+    else{crit.forEach(function(c,i){a.scores[c.id]=myDisc.med[i]!==undefined?myDisc.med[i]:Math.max.apply(null,c.ratings);});}
+    var cmEl2=document.getElementById('scm-'+sid+'-'+wid);
+    if(cmEl2&&cmEl2.value==='Aluno ausente nesta atividade.'){cmEl2.value='';a.comment='';}
+  }
+  updOptsSem(sid,wid,crit);updTotSem(sid,wid,crit,myDisc);
+  updateStuBadgeSem(sid,myDisc);
+}
+
+function setScoreSem(sid,wid,cid,pts,maxPts,discId){
+  var myDisc=DISC[discId]||D;
+  if(!semAsmts[sid]||!semAsmts[sid][wid])return;
+  var a=semAsmts[sid][wid];if(a.absent)return;
+  a.scores[cid]=pts;a.touched=true;
+  var pfx='sw-'+sid+'-'+wid+'-';
+  document.getElementById(pfx+'abs').classList.remove('on');document.getElementById(pfx+'max').classList.remove('on');document.getElementById(pfx+'med').classList.remove('on');
+  var crit=myDisc.criteria;updOptsSem(sid,wid,crit);updTotSem(sid,wid,crit,myDisc);
+  updateStuBadgeSem(sid,myDisc);
+}
+
+function updOptsSem(sid,wid,crit){
+  var a=semAsmts[sid]&&semAsmts[sid][wid];if(!a)return;
+  crit.forEach(function(c){c.ratings.forEach(function(p){var el=document.getElementById('so-'+sid+'-'+wid+'-'+c.id+'-'+p);if(!el)return;el.className='s-opt';if(a.scores[c.id]===p)el.classList.add(scCls(p,Math.max.apply(null,c.ratings)));});});
+}
+function updTotSem(sid,wid,crit,myDisc){
+  var a=semAsmts[sid]&&semAsmts[sid][wid];if(!a)return;
+  var maxTot=crit.reduce(function(s,c){return s+Math.max.apply(null,c.ratings);},0);
+  var allDone=crit.every(function(c){return a.scores[c.id]!==undefined;});
+  var tot=allDone?Object.values(a.scores).reduce(function(x,y){return x+y;},0):null;
+  var el=document.getElementById('stot-'+sid+'-'+wid);if(el)el.textContent=(tot!==null?fmt(tot):'—')+' / '+maxTot;
+}
+function updateStuBadgeSem(sid,myDisc){
+  var touched=semWeeks.filter(function(w){return semAsmts[sid]&&semAsmts[sid][w.id]&&semAsmts[sid][w.id].touched;}).length;
+  var b=document.getElementById('sbdg-'+sid);
+  if(b){b.textContent=touched+'/'+semWeeks.length;b.className=touched>0?'bdg b-done':'bdg b-pend';}
+}
+
+async function doSubmitSemestral(){
+  var myDisc=D;var btn=document.getElementById('btn-sem-sub');
+  btn.disabled=true;btn.innerHTML='<i class="ti ti-refresh" style="animation:spin 1s linear infinite"></i> Enviando...';
+  var ok=0,errs=[],skipped=0;
+  for(var i=0;i<semStudents.length;i++){
+    var s=semStudents[i];
+    for(var j=0;j<semWeeks.length;j++){
+      var w=semWeeks[j];var a=semAsmts[s.id]&&semAsmts[s.id][w.id];
+      if(!a||!a.touched){skipped++;continue;} // skip untouched
+      var total=a.absent?0:Object.values(a.scores).reduce(function(x,y){return x+y;},0);
+      var payload={submission:{posted_grade:total}};
+      if(a.comment)payload.comment={text_comment:a.comment};
+      try{
+        var r=await fetch(PROXY+'/api/v1/courses/'+course.id+'/assignments/'+w.id+'/submissions/'+s.id,{method:'PUT',headers:{'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json'},body:JSON.stringify(payload)});
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        ok++;saveSubmittedWeek(course.id,myDisc.id,w.id);
+        if(a.absent)saveAbsences(w.name,s,a);
+      }catch(e){errs.push(s.name+' / '+w.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim()+': '+e.message);}
+    }
+  }
+  showResult('Modo Semestral — '+course.name+(group?' · '+group.name:''),ok,errs,'semestral',skipped);
+}
+
+function showResult(subtitle,ok,errs,mode,skipped){
+  document.getElementById('sub-result').textContent=subtitle;
+  var detail=ok+' lançamento(s) enviado(s).';
+  if(skipped)detail+=' '+skipped+' semana(s) sem preenchimento (ignoradas).';
+  if(errs.length)detail+=' '+errs.length+' erro(s).';
+  else detail+=' Sem erros.';
+  document.getElementById('detail-result').textContent=detail;
+  var ed=document.getElementById('errors-result');ed.style.display='none';
+  if(errs.length){ed.style.display='block';ed.innerHTML='<div class="err-box"><strong>Erros:</strong><br>'+errs.join('<br>')+'</div>';}
+  go('t-result');
 }
 
 // ── Absences ──
-function loadAbs(){ try{absStore=JSON.parse(localStorage.getItem(ABS_KEY)||'{}');}catch(e){absStore={};} }
-function saveAbsences(weekLabel){
-  loadAbs();
-  var k=course.id+'_'+D.id;
-  if(!absStore[k]) absStore[k]={courseName:course.name,discName:D.name,discId:D.id,weeks:[],students:{},absences:{}};
-  var rec=absStore[k];
-  if(!rec.weeks.includes(weekLabel)) rec.weeks.push(weekLabel);
-  rec.weeks.sort();
-  students.forEach(function(s){
-    rec.students[s.id]=s.name;
-    if(!rec.absences[s.id]) rec.absences[s.id]={};
-    rec.absences[s.id][weekLabel]=!!asmts[s.id].absent;
-  });
+function loadAbs(){try{absStore=JSON.parse(localStorage.getItem(ABS_KEY)||'{}');}catch(e){absStore={};}}
+function saveAbsences(weekLabel,stuOverride,aOverride){
+  loadAbs();var myDisc=D;var k=course.id+'_'+myDisc.id;
+  if(!absStore[k])absStore[k]={courseName:course.name,discName:myDisc.name,discId:myDisc.id,weeks:[],students:{},absences:{}};
+  var rec=absStore[k];if(!rec.weeks.includes(weekLabel))rec.weeks.push(weekLabel);rec.weeks.sort();
+  var stuList=stuOverride?[stuOverride]:students;var asmt=aOverride?function(s){return aOverride;}:function(s){return asmts[s.id];};
+  stuList.forEach(function(s){rec.students[s.id]=s.name;if(!rec.absences[s.id])rec.absences[s.id]={};rec.absences[s.id][weekLabel]=!!(asmt(s)&&asmt(s).absent);});
   localStorage.setItem(ABS_KEY,JSON.stringify(absStore));
 }
-
-function goAbs(){
-  loadAbs();
-  document.getElementById('abs-back').onclick=function(){go(course?'t-courses':'t-disc');};
-  buildAbsNav(); go('t-abs');
-}
-
+function goAbs(){loadAbs();document.getElementById('abs-back').onclick=function(){go(course?'t-courses':'t-disc');};buildAbsNav();go('t-abs');}
 function buildAbsNav(){
-  var nav=document.getElementById('abs-nav'); nav.innerHTML='';
-  var keys=Object.keys(absStore);
-  if(!keys.length){
-    document.getElementById('abs-cont').innerHTML='<div class="abs-empty"><i class="ti ti-calendar-check" style="font-size:26px;display:block;margin-bottom:7px"></i>Nenhuma falta registrada ainda.</div>';
-    document.getElementById('abs-wk').innerHTML='<option value="">Todas as semanas</option>';
-    return;
-  }
-  if(!absView||!absStore[absView]) absView=keys[0];
-  keys.forEach(function(k){
-    var rec=absStore[k]; var d=DISC[rec.discId]||{};
-    var btn=document.createElement('button'); btn.className='abs-nav-btn'+(k===absView?' active':'');
-    btn.innerHTML='<span style="color:'+(d.color||'#666')+';font-weight:700">'+rec.discName+'</span> — '+rec.courseName;
-    btn.onclick=function(){absView=k; buildAbsNav();};
-    nav.appendChild(btn);
-  });
+  var nav=document.getElementById('abs-nav');nav.innerHTML='';var keys=Object.keys(absStore);
+  if(!keys.length){document.getElementById('abs-cont').innerHTML='<div class="abs-empty"><i class="ti ti-calendar-check" style="font-size:26px;display:block;margin-bottom:7px"></i>Nenhuma falta registrada ainda.</div>';document.getElementById('abs-wk').innerHTML='<option value="">Todas as semanas</option>';return;}
+  if(!absView||!absStore[absView])absView=keys[0];
+  keys.forEach(function(k){var rec=absStore[k];var d=DISC[rec.discId]||{};var btn=document.createElement('button');btn.className='abs-nav-btn'+(k===absView?' active':'');btn.innerHTML='<span style="color:'+(d.color||'#666')+';font-weight:700">'+rec.discName+'</span> — '+rec.courseName;btn.onclick=function(){absView=k;buildAbsNav();};nav.appendChild(btn);});
   renderAbsTable();
 }
-
 function renderAbsTable(){
-  if(!absView||!absStore[absView]) return;
-  var rec=absStore[absView];
+  if(!absView||!absStore[absView])return;var rec=absStore[absView];
   var srch=(document.getElementById('abs-srch').value||'').toLowerCase();
-  var fw=document.getElementById('abs-wk'); var prev=fw.value;
-  fw.innerHTML='<option value="">Todas as semanas</option>';
-  rec.weeks.forEach(function(w){ var o=document.createElement('option'); o.value=w; o.textContent=w; if(w===prev) o.selected=true; fw.appendChild(o); });
-  var fwk=fw.value; var weeks=fwk?[fwk]:rec.weeks;
+  var fw=document.getElementById('abs-wk');var prev=fw.value;
+  fw.innerHTML='<option value="">Todas as semanas</option>';rec.weeks.forEach(function(w){var o=document.createElement('option');o.value=w;o.textContent=w;if(w===prev)o.selected=true;fw.appendChild(o);});
+  var fwk=fw.value;var weeks=fwk?[fwk]:rec.weeks;
   var sids=Object.keys(rec.students).filter(function(sid){return !srch||rec.students[sid].toLowerCase().includes(srch);});
-  if(!weeks.length||!sids.length){ document.getElementById('abs-cont').innerHTML='<div class="abs-empty">Nenhum resultado.</div>'; return; }
-  function sw(l){ var m=l.match(/semana\s*(\d+)/i)||l.match(/(\d+)/); return m?'S'+m[1]:l.slice(0,5); }
-  var h='<div class="abs-wrap"><table class="abs-tbl"><thead><tr><th>Aluno</th>';
-  weeks.forEach(function(w){h+='<th style="text-align:center" title="'+w+'">'+sw(w)+'</th>';});
-  h+='<th style="text-align:center">Faltas</th></tr></thead><tbody>';
-  sids.sort(function(a,b){return rec.students[a].localeCompare(rec.students[b]);});
-  var tot=0;
+  if(!weeks.length||!sids.length){document.getElementById('abs-cont').innerHTML='<div class="abs-empty">Nenhum resultado.</div>';return;}
+  function sw(l){var m=l.match(/semana\s*(\d+)/i)||l.match(/(\d+)/);return m?'S'+m[1]:l.slice(0,5);}
+  var h='<div class="abs-wrap"><table class="abs-tbl"><thead><tr><th>Aluno</th>';weeks.forEach(function(w){h+='<th style="text-align:center" title="'+w+'">'+sw(w)+'</th>';});h+='<th style="text-align:center">Faltas</th></tr></thead><tbody>';
+  sids.sort(function(a,b){return rec.students[a].localeCompare(rec.students[b]);});var tot=0;
   sids.forEach(function(sid){
-    var nm=rec.students[sid];
-    var cnt=weeks.filter(function(w){return rec.absences[sid]&&rec.absences[sid][w];}).length; tot+=cnt;
+    var nm=rec.students[sid];var cnt=weeks.filter(function(w){return rec.absences[sid]&&rec.absences[sid][w];}).length;tot+=cnt;
     var cc=cnt===0?'ac0':cnt===1?'ac1':cnt===2?'ac2':'ac3';
     h+='<tr><td style="font-weight:500">'+nm+'</td>';
-    weeks.forEach(function(w){
-      var v=rec.absences[sid]?rec.absences[sid][w]:undefined;
-      if(v===undefined) h+='<td style="text-align:center;color:#ccc">—</td>';
-      else if(v) h+='<td style="text-align:center"><span class="fd">F</span></td>';
-      else h+='<td style="text-align:center"><span class="pd">P</span></td>';
-    });
+    weeks.forEach(function(w){var v=rec.absences[sid]?rec.absences[sid][w]:undefined;if(v===undefined)h+='<td style="text-align:center;color:#ccc">—</td>';else if(v)h+='<td style="text-align:center"><span class="fd">F</span></td>';else h+='<td style="text-align:center"><span class="pd">P</span></td>';});
     h+='<td style="text-align:center"><span class="ac '+cc+'">'+cnt+'</span></td></tr>';
   });
   h+='</tbody></table></div><div style="margin-top:8px;font-size:11px;color:#888;text-align:right">'+sids.length+' alunos · '+weeks.length+' sem. · '+tot+' falta(s)</div>';
   document.getElementById('abs-cont').innerHTML=h;
 }
-
-function clearAbs(){ if(confirm('Apagar todo o histórico de faltas?')){ localStorage.removeItem(ABS_KEY); absStore={}; absView=null; buildAbsNav(); } }
+function clearAbs(){if(confirm('Apagar todo o histórico de faltas?')){localStorage.removeItem(ABS_KEY);absStore={};absView=null;buildAbsNav();}}
 
 // ── Init ──
-// Always start on discipline screen. Pre-fill token if saved,
-// and pre-select last disc, but user must explicitly click Connect.
-loadAbs(); initDisc();
-var st=localStorage.getItem('ctok'), sd=localStorage.getItem('cdisc');
-if(st){
-  document.getElementById('tok').value=st;
-  TOKEN=st;
-}
+loadAbs();initDisc();
+var st=localStorage.getItem('ctok'),sd=localStorage.getItem('cdisc');
+if(st){TOKEN=st;document.getElementById('tok').value=st;}
 if(sd&&DISC[sd]){
   D=DISC[sd];
-  // Highlight the saved disc button
-  document.querySelectorAll('.disc-btn').forEach(function(b){
-    if(b.querySelector('.disc-name').textContent===D.name){
-      b.classList.add('sel');
-    }
-  });
-  if(st){
-    document.getElementById('btn-conn').disabled=false;
-    document.getElementById('btn-conn').style.background=D.color;
-  }
+  document.querySelectorAll('.disc-btn').forEach(function(b){if(b.querySelector('.disc-name').textContent===D.name)b.classList.add('sel');});
+  if(st){document.getElementById('btn-conn').disabled=false;document.getElementById('btn-conn').style.background=D.color;}
 }
 </script>
 </body>
