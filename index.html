@@ -507,6 +507,13 @@ async function apiAll(path){
     page++;
     if(page>50) break; // supports up to 1000 assignments
   }
+  // Deduplicate by id
+  var seen={};
+  results=results.filter(function(item){
+    if(!item.id||seen[item.id]) return false;
+    seen[item.id]=true;
+    return true;
+  });
   return results;
 }
 
@@ -529,14 +536,26 @@ async function loadWeeks(){
       var btn=document.createElement('button'); btn.className='wk-btn';
       var label=a.name.replace(/avalia[cç][aã]o do aluno\s*[-–]?\s*/i,'').trim()||a.name;
       btn.textContent=label;
+      // Mark already submitted weeks in green
+      if(isWeekSubmitted(course.id, D.id, a.id)){
+        btn.style.background='#E1F5EE'; btn.style.borderColor='#1D9E75'; btn.style.color='#085041';
+        btn.title='Já avaliada';
+        btn.innerHTML='<i class="ti ti-check" style="font-size:11px;margin-right:3px"></i>'+btn.textContent;
+      }
       btn.onclick=function(){
         week=a;
         document.querySelectorAll('.wk-btn').forEach(function(b){
           b.classList.remove('sel'); b.style.background=''; b.style.borderColor=''; b.style.color='';
+          // Restore submitted color if needed
+          var aid=b.getAttribute('data-aid');
+          if(aid&&isWeekSubmitted(course.id,D.id,parseInt(aid))){
+            b.style.background='#E1F5EE'; b.style.borderColor='#1D9E75'; b.style.color='#085041';
+          }
         });
         btn.classList.add('sel'); btn.style.background=D.light; btn.style.borderColor=D.color; btn.style.color=D.dark;
         setTimeout(function(){ goToStudents(); }, 300);
       };
+      btn.setAttribute('data-aid', a.id);
       wl.appendChild(btn);
     });
     document.getElementById('load-weeks').style.display='none';
@@ -738,6 +757,7 @@ async function doSubmit(){
   // Save absences first
   saveAbsences(week.name);
   absView=course.id+'_'+myDisc.id;
+  saveSubmittedWeek(course.id, myDisc.id, week.id);
   // Always use local criteria — never trust Canvas rubric order
   var ok=0, errs=[];
   for(var i=0;i<students.length;i++){
@@ -757,6 +777,22 @@ async function doSubmit(){
   document.getElementById('detail-result').textContent=ok+' aluno(s) enviados.'+(errs.length?' '+errs.length+' erro(s).':' Sem erros.');
   if(errs.length){ var ed=document.getElementById('errors-result'); ed.style.display='block'; ed.innerHTML='<div class="err-box"><strong>Erros:</strong><br>'+errs.join('<br>')+'</div>'; }
   go('t-result');
+}
+
+// ── Submitted weeks ──
+var SUBMITTED_KEY='canvas_submitted_v1';
+function loadSubmitted(){ try{ return JSON.parse(localStorage.getItem(SUBMITTED_KEY)||'{}'); }catch(e){ return {}; } }
+function saveSubmittedWeek(courseId,discId,weekId){
+  var s=loadSubmitted();
+  var k=courseId+'_'+discId;
+  if(!s[k]) s[k]=[];
+  if(s[k].indexOf(weekId)===-1) s[k].push(weekId);
+  localStorage.setItem(SUBMITTED_KEY,JSON.stringify(s));
+}
+function isWeekSubmitted(courseId,discId,weekId){
+  var s=loadSubmitted();
+  var k=courseId+'_'+discId;
+  return s[k]&&s[k].indexOf(weekId)!==-1;
 }
 
 // ── Absences ──
